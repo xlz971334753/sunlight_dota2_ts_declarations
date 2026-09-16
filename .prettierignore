@@ -3,3 +3,8 @@
 !/packages/*/transformer/index.ts
 !/packages/*/transformer/tsconfig.json
 *.md
+/output/npc/
+/output/soundevents/
+/output/.resources-state.json
+/.resource-work-*/
+/temp/

@@ -9,6 +9,8 @@
     "build:types": "ts-node-script build",
     "changelog:types": "ts-node scripts/diff-types.ts",
     "check-generated": "node scripts/check-generated.js",
+    "update:resources": "node scripts/update-resources.js",
+    "test:resources": "node --test scripts/resources/resources.test.js",
     "dev": "run-p dev:*",
     "dev:tsc": "tsc -b packages --watch",
     "dev:types": "nodemon",

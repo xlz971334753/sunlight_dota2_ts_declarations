@@ -3,3 +3,9 @@ node_modules
 /packages/*/transformer/*
 !/packages/*/transformer/index.ts
 !/packages/*/transformer/tsconfig.json
+/output/.resources-state.json
+/.resources-update.lock
+/.resource-work-*/
+/artifacts/resource-update.log
+/output
+/tools/cli-windows-x64/

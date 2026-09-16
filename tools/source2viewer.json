@@ -1,0 +1,11 @@
+{
+  "version": "20.0",
+  "url": "https://github.com/ValveResourceFormat/ValveResourceFormat/releases/download/20.0/cli-windows-x64.zip",
+  "size": 52735867,
+  "sha256": "d32ab327b8bbb42a2528866afb03bb582bdb779d0005488da32b90292afd3ff5",
+  "files": {
+    "Source2Viewer-CLI.exe": "a4bb4f9945db985efb2cad90a90d06867de5ba7e0447a2a4a69a07dace781028",
+    "libSkiaSharp.dll": "0d98e29c028b3315d0e0344d02cd7aa4080abdf17fa67086847da13435320f2a",
+    "spirv-cross.dll": "6426b3f1a11f6a324569794cd44ab97905009a77bd3be12a4e7fe42cede774c2"
+  }
+}
