@@ -53,5 +53,6 @@
     "typescript": "^5.5.2",
     "wordwrap": "^1.0.0"
   },
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "name": "sunlight_dota2_ts_declarations"
 }

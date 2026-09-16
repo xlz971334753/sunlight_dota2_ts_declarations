@@ -8,13 +8,13 @@
     "types",
     "typescript"
   ],
-  "homepage": "https://github.com/ModDota/TypeScriptDeclarations#readme",
+  "homepage": "https://github.com/xlz971334753/sunlight_dota2_ts_declarations#readme",
   "bugs": {
-    "url": "https://github.com/ModDota/TypeScriptDeclarations/issues"
+    "url": "https://github.com/xlz971334753/sunlight_dota2_ts_declarations/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ModDota/TypeScriptDeclarations.git",
+    "url": "git+https://github.com/xlz971334753/sunlight_dota2_ts_declarations.git",
     "directory": "packages/dota-lua-types"
   },
   "license": "MIT",
