@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "source": "Wikibox scripts/resource/addon_schinese.txt",
+  "sourceSha256": "52f70f887a9b0f499a3e712e31d92323d0b1d2858fd83ba4fb73791ffed91bb1",
+  "declarationsPackage": "@moddota/dota-data",
+  "declarationsVersion": "0.47.2",
+  "importSummary": {
+    "enumMembers": 2905,
+    "apiMembers": 295,
+    "modifierCallbacks": 391,
+    "total": 3592,
+    "added": 3132,
+    "updated": 84
+  },
+  "notes": [
+    "枚举按完整标识符匹配；接口按实体、技能、物品、modifier 所属类别匹配。",
+    "已核对同名 UI 标签冲突，保留既有 API 手工注释。",
+    "参考资料中的不可用前缀已移除；可用性注释由检查报告在生成声明时单独追加。",
+    "生成声明不依赖参考文本所在的 Desktop 路径。"
+  ],
+  "normalization": {
+    "removedUnavailablePrefixes": 181,
+    "availabilitySource": "artifacts/modifier-functions.json (schema 2)"
+  }
+}

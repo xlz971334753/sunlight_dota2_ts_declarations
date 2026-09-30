@@ -2,20 +2,24 @@ import path from 'path';
 import prettier from 'prettier';
 import wordwrap from 'wordwrap';
 import fs from 'fs';
+import { loadModifierComments } from './modifier-comments';
 
 export const wrapDescription = (description: string, start = 0) =>
   wordwrap({ stop: 80, start })(description.replace(/\n/g, '\n\n'));
 
-type ManualComments = Record<
-  string,
-  {
-    description?: string;
-    deprecated?: string;
-    params?: Record<string, string>;
-  }
+type ManualComments = Partial<
+  Record<
+    string,
+    {
+      description?: string;
+      deprecated?: string;
+      params?: Record<string, string>;
+    }
+  >
 >;
 
 let manual_comments_cache: ManualComments | undefined;
+let modifier_comments_cache: Map<string, string> | undefined;
 
 function load_json_optional<T>(file_path: string, fallback: T): T {
   if (!fs.existsSync(file_path)) return fallback;
@@ -31,19 +35,36 @@ function get_manual_comments(): ManualComments {
   return manual_comments_cache;
 }
 
+function get_modifier_comments(): Map<string, string> {
+  if (modifier_comments_cache) return modifier_comments_cache;
+  const explicit_path = process.env.MODIFIER_FUNCTION_REPORT;
+  modifier_comments_cache = loadModifierComments(
+    explicit_path
+      ? path.resolve(explicit_path)
+      : path.resolve(__dirname, '../../artifacts/modifier-functions.json'),
+    Boolean(explicit_path),
+  );
+  return modifier_comments_cache;
+}
+
 export function resolve_comment(
   identifier: string,
   field: string,
   original?: string,
 ): string | undefined {
   const manual = get_manual_comments()[identifier];
+  if (field === 'description') {
+    const description = manual?.description || original;
+    const binding = get_modifier_comments().get(identifier);
+    return binding ? [description, binding].filter(Boolean).join('\n') : description;
+  }
+
   if (manual) {
-    if (field === 'description' && manual.description) return manual.description;
     if (field === 'deprecated' && manual.deprecated) return manual.deprecated;
     if (field.startsWith('param:') && manual.params) {
-      const param_name = field.slice('param:'.length);
-      const param_text = manual.params[param_name];
-      if (param_text) return param_text;
+      const parameter_name = field.slice('param:'.length);
+      const parameter_text = manual.params[parameter_name];
+      if (parameter_text) return parameter_text;
     }
   }
 

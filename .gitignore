@@ -7,5 +7,7 @@ node_modules
 /.resources-update.lock
 /.resource-work-*/
 /artifacts/resource-update.log
+/artifacts/modifier-functions.json
+/artifacts/modifier-functions.md
 /output
 /tools/cli-windows-x64/

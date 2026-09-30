@@ -1,4 +1,13 @@
 {
+  "CEntities.FindAllByClassnameWithin": {
+    "return": "CBaseEntity[]"
+  },
+  "CEntities.FindAllByNameWithin": {
+    "return": "CBaseEntity[]"
+  },
+  "CEntities.FindAllInSphere": {
+    "return": "CBaseEntity[]"
+  },
   "CDOTA_Modifier_Lua.GetModifierPropertyRestorationAmplification": {
     "return": "number"
   },
