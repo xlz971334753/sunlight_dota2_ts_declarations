@@ -370,7 +370,7 @@
   integrity sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==
 
 "@sunlight_xlz/dota-lua-types@file:D:\\WorkSpace\\sunlight_dota2_ts_declarations\\packages\\dota-lua-types":
-  version "1.0.4"
+  version "1.0.5"
   resolved "file:packages/dota-lua-types"
   dependencies:
     lua-types "^2.13.1"

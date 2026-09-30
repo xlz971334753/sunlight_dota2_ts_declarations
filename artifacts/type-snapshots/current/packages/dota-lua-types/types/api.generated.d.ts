@@ -1191,20 +1191,20 @@ declare interface CDOTA_Ability_DataDriven extends CDOTABaseAbility {
     /**
      * Applies a data driven modifier to the target.
      */
-    ApplyDataDrivenModifier(
+    ApplyDataDrivenModifier<TModifier extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua>(
         caster: CDOTA_BaseNPC,
         target: CDOTA_BaseNPC,
         modifierName: string,
-        modifierTable: object | undefined,
+        modifierTable: ModifierTable<TModifier> | undefined,
     ): CDOTA_Buff;
     /**
      * Applies a data driven thinker at the location.
      */
-    ApplyDataDrivenThinker(
+    ApplyDataDrivenThinker<TModifier extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua>(
         caster: CDOTA_BaseNPC,
         location: Vector,
         modifierName: string,
-        modifierTable: object | undefined,
+        modifierTable: ModifierTable<TModifier> | undefined,
     ): CDOTA_Buff;
     __kind__: 'instance';
 }
@@ -1601,11 +1601,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     /**
      * Add a modifier to this unit.
      */
-    AddNewModifier(
+    AddNewModifier<TModifier extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua>(
         caster: CDOTA_BaseNPC | undefined,
         ability: CDOTABaseAbility | undefined,
         modifierName: string,
-        modifierTable: object | undefined,
+        modifierTable: ModifierTable<TModifier> | undefined,
     ): CDOTA_Buff;
     /**
      * 添加不可见标记
@@ -3941,20 +3941,20 @@ declare interface CDOTA_Item_DataDriven extends CDOTA_Item {
     /**
      * Applies a data driven modifier to the target.
      */
-    ApplyDataDrivenModifier(
+    ApplyDataDrivenModifier<TModifier extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua>(
         caster: CDOTA_BaseNPC,
         target: CDOTA_BaseNPC,
         modifierName: string,
-        modifierTable: object | undefined,
+        modifierTable: ModifierTable<TModifier> | undefined,
     ): void;
     /**
      * Applies a data driven thinker at the location.
      */
-    ApplyDataDrivenThinker(
+    ApplyDataDrivenThinker<TModifier extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua>(
         caster: CDOTA_BaseNPC,
         location: Vector,
         modifierName: string,
-        modifierTable: object | undefined,
+        modifierTable: ModifierTable<TModifier> | undefined,
     ): CDOTA_Buff;
     __kind__: 'instance';
 }
@@ -11177,11 +11177,11 @@ declare function CreateItemOnPositionSync(location: Vector, item: CDOTA_Item | u
 /**
  * Create a modifier not associated with an NPC.
  */
-declare function CreateModifierThinker(
+declare function CreateModifierThinker<TModifier extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua>(
     caster: CDOTA_BaseNPC | undefined,
     ability: CDOTABaseAbility | undefined,
     modifierName: string,
-    paramTable: object | undefined,
+    paramTable: ModifierTable<TModifier> | undefined,
     origin: Vector,
     teamNumber: DOTATeam_t,
     phantomBlocker: boolean,

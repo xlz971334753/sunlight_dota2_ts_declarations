@@ -148,6 +148,11 @@ const functionsWithOptionalParameters = [
   'PrecacheUnitByNameSync',
   'Vector',
 ];
+
+const isModifierTableParameter = (identifier: string, name: string) =>
+  name.toLowerCase() === 'modifiertable' ||
+  (identifier === 'CreateModifierThinker' && name === 'paramTable');
+
 const getFunctionParameters = (identifier: string, parameters: api.FunctionParameter[]) =>
   parameters.map(({ name, types }) => {
     const isOptional =
@@ -157,7 +162,15 @@ const getFunctionParameters = (identifier: string, parameters: api.FunctionParam
       // TODO: Make dom.ParameterFlags.Optional work on CallSignature nodes
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       (parameterNamesMap[name] ?? name) + (isOptional ? '?' : ''),
-      getType(types, !isOptional, 'void'),
+      getType(
+        types.map((type) =>
+          type === 'table' && isModifierTableParameter(identifier, name)
+            ? 'ModifierTable<TModifier>'
+            : type,
+        ),
+        !isOptional,
+        'void',
+      ),
     );
   });
 
@@ -224,6 +237,19 @@ export function getFunction<T extends CallableDeclaration>(
   const returnType = getReturnType(identifier, func.returns);
   const fn = createType(getFunctionParameters(identifier, func.args), returnType);
   fn.jsDocComment = comments.join('\n');
+
+  if (
+    func.args.some(
+      ({ name, types }) => types.includes('table') && isModifierTableParameter(identifier, name),
+    )
+  ) {
+    const modifierType = dom.create.typeParameter(
+      'TModifier',
+      dom.create.interface('CDOTA_Modifier_Lua'),
+    );
+    modifierType.defaultType = dom.create.namedTypeReference('CDOTA_Modifier_Lua');
+    fn.typeParameters.push(modifierType);
+  }
 
   const override = overrides[identifier];
   const file_override = get_config_overrides()[identifier] as any;

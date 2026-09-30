@@ -27,4 +27,9 @@ type DotaConstructor<T extends object> = {
         : T[P];
 };
 
+type ModifierTable<T extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua> = Parameters<T['OnCreated']>[0] & {
+    /** 持续时间在slmodifier添加时不配置在table内 */
+    duration?: never;
+};
+
 type __NumberLike = number & Record<Exclude<keyof number, 'toString'>, never>;

@@ -55,3 +55,30 @@
 - `interface:CEntities#method:FindAllInSphere`
   - before: `FindAllInSphere(location: Vector, arg2: number): object`
   - after:  `FindAllInSphere(location: Vector, arg2: number): CBaseEntity[]`
+
+## 2026-09-30 15:47:44
+
+- Added: 0
+- Removed: 0
+- Changed: 6
+- Unchanged: 4933
+
+## Changed
+- `global:function:CreateModifierThinker`
+  - before: `CreateModifierThinker(caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, paramTable: object | undefined, origin: Vector, teamNumber: DOTATeam_t, phantomBlocker: boolean): CDOTA_BaseNPC`
+  - after:  `CreateModifierThinker<TModifier extends CDOTA_Modifier_Lua>(caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, paramTable: ModifierTable<TModifier> | undefined, origin: Vector, teamNumber: DOTATeam_t, phantomBlocker: boolean): CDOTA_BaseNPC`
+- `interface:CDOTA_Ability_DataDriven#method:ApplyDataDrivenModifier`
+  - before: `ApplyDataDrivenModifier(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC, modifierName: string, modifierTable: object | undefined): CDOTA_Buff`
+  - after:  `ApplyDataDrivenModifier<TModifier extends CDOTA_Modifier_Lua>(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC, modifierName: string, modifierTable: ModifierTable<TModifier> | undefined): CDOTA_Buff`
+- `interface:CDOTA_Ability_DataDriven#method:ApplyDataDrivenThinker`
+  - before: `ApplyDataDrivenThinker(caster: CDOTA_BaseNPC, location: Vector, modifierName: string, modifierTable: object | undefined): CDOTA_Buff`
+  - after:  `ApplyDataDrivenThinker<TModifier extends CDOTA_Modifier_Lua>(caster: CDOTA_BaseNPC, location: Vector, modifierName: string, modifierTable: ModifierTable<TModifier> | undefined): CDOTA_Buff`
+- `interface:CDOTA_BaseNPC#method:AddNewModifier`
+  - before: `AddNewModifier(caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: object | undefined): CDOTA_Buff`
+  - after:  `AddNewModifier<TModifier extends CDOTA_Modifier_Lua>(caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: ModifierTable<TModifier> | undefined): CDOTA_Buff`
+- `interface:CDOTA_Item_DataDriven#method:ApplyDataDrivenModifier`
+  - before: `ApplyDataDrivenModifier(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC, modifierName: string, modifierTable: object | undefined): void`
+  - after:  `ApplyDataDrivenModifier<TModifier extends CDOTA_Modifier_Lua>(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC, modifierName: string, modifierTable: ModifierTable<TModifier> | undefined): void`
+- `interface:CDOTA_Item_DataDriven#method:ApplyDataDrivenThinker`
+  - before: `ApplyDataDrivenThinker(caster: CDOTA_BaseNPC, location: Vector, modifierName: string, modifierTable: object | undefined): CDOTA_Buff`
+  - after:  `ApplyDataDrivenThinker<TModifier extends CDOTA_Modifier_Lua>(caster: CDOTA_BaseNPC, location: Vector, modifierName: string, modifierTable: ModifierTable<TModifier> | undefined): CDOTA_Buff`
