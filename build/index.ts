@@ -11,7 +11,7 @@ const write = (packageName: string, type: string, content: string) =>
   );
 
 const snapshot_root = path.resolve(__dirname, '../artifacts/type-snapshots');
-const snapshot_prev = path.join(snapshot_root, 'prev');
+const snapshot_previous = path.join(snapshot_root, 'prev');
 const snapshot_current = path.join(snapshot_root, 'current');
 
 const changelog_root = path.resolve(__dirname, '../artifacts/changelog');
@@ -34,12 +34,14 @@ function strip_changelog_title(md: string): string {
     lines.shift();
     if (lines.length > 0 && lines[0].trim() === '') lines.shift();
   }
+
   return lines.join('\n').replace(/^\s+/, '');
 }
 
 async function ensure_changelog_header(): Promise<void> {
   const changelog_exists = await fs.pathExists(changelog_md_path);
   if (changelog_exists) return;
+
   await fs.outputFile(changelog_md_path, '# Types changelog\n');
 }
 
@@ -48,10 +50,12 @@ async function update_snapshots_and_changelog() {
   await fs.ensureDir(changelog_root);
 
   if (await fs.pathExists(snapshot_current)) {
-    await fs.remove(snapshot_prev);
-    await fs.move(snapshot_current, snapshot_prev, { overwrite: true });
+    // Copy before clearing current; open directory handles can block renames on Windows.
+    await fs.emptyDir(snapshot_previous);
+    await fs.copy(snapshot_current, snapshot_previous, { overwrite: true });
   }
-  await fs.ensureDir(snapshot_current);
+
+  await fs.emptyDir(snapshot_current);
 
   const copy_targets = [
     path.resolve(__dirname, '../packages/dota-lua-types/types'),
@@ -63,13 +67,13 @@ async function update_snapshots_and_changelog() {
   ];
 
   for (const target of copy_targets) {
-    const rel = path.relative(path.resolve(__dirname, '..'), target);
-    const dest = path.join(snapshot_current, rel);
-    await fs.copy(target, dest, { overwrite: true });
+    const relative_path = path.relative(path.resolve(__dirname, '..'), target);
+    const destination = path.join(snapshot_current, relative_path);
+    await fs.copy(target, destination, { overwrite: true });
   }
 
-  if (await fs.pathExists(snapshot_prev)) {
-    const diff = diff_types(snapshot_prev, snapshot_current);
+  if (await fs.pathExists(snapshot_previous)) {
+    const diff = diff_types(snapshot_previous, snapshot_current);
     if (diff.summary.added === 0 && diff.summary.removed === 0 && diff.summary.changed === 0) {
       return;
     }

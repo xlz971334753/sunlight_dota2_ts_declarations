@@ -137,7 +137,11 @@ declare interface CBaseEntity extends CEntityInstance {
      * Returns a table containing the criteria that would be used for response queries on this entity. This is the same as the table that is passed to response rule script function callbacks.
      */
     GatherCriteria(result: object): void;
-    /** @both */
+    /**
+     * 实体绝对坐标
+     *
+     * @both
+     */
     GetAbsOrigin(): Vector;
     GetAbsScale(): number;
     GetAngles(): QAngle;
@@ -219,7 +223,7 @@ declare interface CBaseEntity extends CEntityInstance {
      */
     GetMaxHealth(): number;
     /**
-     * Returns the name of the model.
+     * 模型名称
      */
     GetModelName(): string;
     /**
@@ -228,7 +232,7 @@ declare interface CBaseEntity extends CEntityInstance {
     GetMoveParent(): CBaseEntity;
     GetOrigin(): Vector;
     /**
-     * Gets this entity's owner.
+     * 拥有者
      */
     GetOwner(): CBaseEntity;
     /**
@@ -252,7 +256,7 @@ declare interface CBaseEntity extends CEntityInstance {
      */
     GetSpawnGroupHandle(): SpawnGroupHandle;
     /**
-     * Get the team number of this entity.
+     * 所属阵营
      */
     GetTeam(): DOTATeam_t;
     /**
@@ -271,7 +275,7 @@ declare interface CBaseEntity extends CEntityInstance {
      */
     HasAttribute(name: string): boolean;
     /**
-     * Is this entity alive?
+     * 存活
      */
     IsAlive(): boolean;
     /**
@@ -302,6 +306,9 @@ declare interface CBaseEntity extends CEntityInstance {
      * Is this entity a player pawn?
      */
     IsPlayerPawn(): this is CBasePlayerPawn;
+    /**
+     * 击杀
+     */
     Kill(): void;
     NextMovePeer(): CBaseEntity;
     /**
@@ -349,7 +356,7 @@ declare interface CBaseEntity extends CEntityInstance {
         interval: number,
     ): void;
     /**
-     * Set the name of an entity.
+     * 设定实体名称
      */
     SetEntityName(name: string): void;
     /**
@@ -382,7 +389,7 @@ declare interface CBaseEntity extends CEntityInstance {
      */
     SetMass(mass: number): void;
     /**
-     * Set the maximum health of this entity.
+     * 设置最大生命值
      */
     SetMaxHealth(amt: number): void;
     SetOrigin(v: Vector): void;
@@ -474,7 +481,7 @@ declare interface CBaseModelEntity extends CBaseEntity {
      */
     GetMaterialGroupMask(): Uint64;
     /**
-     * Get scale of entity's model.
+     * 模型体积
      */
     GetModelScale(): number;
     /**
@@ -511,9 +518,12 @@ declare interface CBaseModelEntity extends CBaseEntity {
      * Set the mesh group mask of this entity.
      */
     SetMaterialGroupMask(meshGroupMask: Uint64): void;
+    /**
+     * 设置单位模型
+     */
     SetModel(modelName: string): void;
     /**
-     * Set scale of entity's model.
+     * 设置模型体积
      */
     SetModelScale(scale: number): void;
     /**
@@ -1223,26 +1233,30 @@ declare interface CDOTA_Ability_Lua extends CDOTABaseAbility {
      * @both
      */
     CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult;
-    /** @both */
+    /**
+     * 充能时间
+     *
+     * @both
+     */
     GetAbilityChargeRestoreTime(level: number): number;
     /**
-     * Allows code overriding of the ability texture shown in the HUD.
+     * 技能图标
      *
      * @client
      */
     GetAbilityTextureName(): string;
     /**
-     * Controls the size of the AOE casting cursor.
+     * 作用范围
      *
      * @both
      */
     GetAOERadius(): number;
     /**
-     * Returns abilities that are stolen simultaneously, or otherwise related in functionality.
+     * 主技能
      */
     GetAssociatedPrimaryAbilities(): string;
     /**
-     * Returns other abilities that are stolen simultaneously, or otherwise related in functionality.  Generally hidden abilities.
+     * 附属技能
      */
     GetAssociatedSecondaryAbilities(): string;
     /**
@@ -1252,7 +1266,7 @@ declare interface CDOTA_Ability_Lua extends CDOTABaseAbility {
      */
     GetBehavior(): DOTA_ABILITY_BEHAVIOR | Uint64;
     /**
-     * Return casting animation of this ability.
+     * 施法动作名
      */
     GetCastAnimation(): GameActivity_t;
     /**
@@ -1286,19 +1300,19 @@ declare interface CDOTA_Ability_Lua extends CDOTABaseAbility {
      */
     GetChannelledManaCostPerSecond(level: number): number;
     /**
-     * Return the channel start time of this ability.
+     * 持续施法开始时间
      *
      * @both
      */
     GetChannelStartTime(): number;
     /**
-     * Return the channel time of this ability.
+     * 持续施法时间
      *
      * @both
      */
     GetChannelTime(): number;
     /**
-     * Return who hears speech when this spell is cast.
+     * 语音类型
      */
     GetConceptRecipientType(): number;
     /**
@@ -1332,7 +1346,7 @@ declare interface CDOTA_Ability_Lua extends CDOTABaseAbility {
      */
     GetCustomHudErrorMessage(reason: number): string;
     /**
-     * Return cast range of this ability, accounting for modifiers.
+     * 当前施法距离
      *
      * @both
      */
@@ -1350,7 +1364,7 @@ declare interface CDOTA_Ability_Lua extends CDOTABaseAbility {
      */
     GetHealthCost(level: number): number;
     /**
-     * Returns the name of the modifier applied passively by this ability.
+     * 固有modifier
      */
     GetIntrinsicModifierName(): string;
     /**
@@ -1380,15 +1394,15 @@ declare interface CDOTA_Ability_Lua extends CDOTABaseAbility {
      */
     IsHiddenAbilityCastable(): boolean;
     /**
-     * Returns true if this ability is hidden when stolen by Spell Steal.
+     * 被窃取后隐藏
      */
     IsHiddenWhenStolen(): boolean;
     /**
-     * Returns true if this ability is refreshed by Refresher Orb.
+     * 可刷新技能
      */
     IsRefreshable(): boolean;
     /**
-     * Returns true if this ability can be stolen by Spell Steal.
+     * 可被窃取技能
      */
     IsStealable(): boolean;
     /**
@@ -1496,15 +1510,15 @@ declare interface CDOTA_Ability_Lua extends CDOTABaseAbility {
      */
     PiercesDebuffImmunity(): boolean;
     /**
-     * Returns true if this ability will generate magic stick charges for nearby enemies.
+     * 是否触发魔棒充能
      */
     ProcsMagicStick(): boolean;
     /**
-     * Does this ability need the caster to face the target before executing?
+     * 施法需转身
      */
     RequiresFacing(): boolean;
     /**
-     * Returns true if this ability should return to the default toggle state when its parent respawns.
+     * 死亡重置开关状态
      */
     ResetToggleOnRespawn(): boolean;
     /**
@@ -1594,7 +1608,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
         modifierTable: object | undefined,
     ): CDOTA_Buff;
     /**
-     * Adds the no draw flag.
+     * 添加不可见标记
      */
     AddNoDraw(): void;
     /**
@@ -1604,16 +1618,22 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     AlertNearbyUnits(attacker: CDOTA_BaseNPC, ability: CDOTABaseAbility): void;
     AngerNearbyUnits(): void;
     AttackNoEarlierThan(time: number, timeDisparityTolerance: number): void;
+    /**
+     * 攻击准备就绪
+     */
     AttackReady(): boolean;
     BoundingRadius2D(): number;
     CalculateGenericBonuses(): void;
+    /**
+     * 在对方视野内
+     */
     CanBeSeenByAnyOpposingTeam(): boolean;
     /**
      * Check FoW to see if an entity is visible.
      */
     CanEntityBeSeenByMyTeam(entity: CDOTA_BaseNPC): boolean;
     /**
-     * Query if this unit can sell items.
+     * 可出售物品
      */
     CanSellItems(): boolean;
     /**
@@ -1636,6 +1656,9 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Toggle an ability.
      */
     CastAbilityToggle(ability: CDOTABaseAbility, playerIndex: number): void;
+    /**
+     * 更换阵营
+     */
     ChangeTeam(teamNum: number): void;
     /**
      * Clear Activity modifiers.
@@ -1711,7 +1734,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     /** @both */
     GetAbilityCount(): number;
     /**
-     * Gets the range at which this unit will auto-acquire.
+     * 攻击警戒距离
      */
     GetAcquisitionRange(): number;
     /**
@@ -1723,26 +1746,47 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     GetAggroTarget(): CDOTA_BaseNPC | undefined;
     GetAttackAnimationPoint(): number;
+    /**
+     * 攻击类型
+     */
     GetAttackCapability(): DOTAUnitAttackCapability_t;
     /**
      * Returns a random integer between the minimum and maximum base damage of the unit.
      */
     GetAttackDamage(): number;
     /**
-     * Gets the attack range buffer.
+     * 攻击缓冲距离
      */
     GetAttackRangeBuffer(): number;
-    /** @both */
+    /**
+     * 攻击速度
+     *
+     * @both
+     */
     GetAttackSpeed(ignoreTempAttackSpeed: boolean): number;
-    /** @both */
+    /**
+     * 每秒攻击次数
+     *
+     * @both
+     */
     GetAttacksPerSecond(ignoreTempAttackSpeed: boolean): number;
+    /**
+     * 当前攻击目标
+     */
     GetAttackTarget(): CDOTA_BaseNPC | undefined;
     /**
      * Returns the average value of the minimum and maximum damage values.
      */
     GetAverageTrueAttackDamage(target: CDOTA_BaseNPC | undefined): number;
+    /**
+     * 基础攻击距离
+     */
     GetBaseAttackRange(): number;
-    /** @both */
+    /**
+     * 基础攻击间隔
+     *
+     * @both
+     */
     GetBaseAttackTime(): number;
     /**
      * Get the maximum attack damage of this unit.
@@ -1756,7 +1800,13 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Returns the vision range before modifiers.
      */
     GetBaseDayTimeVisionRange(): number;
+    /**
+     * 生命条高度
+     */
     GetBaseHealthBarOffset(): number;
+    /**
+     * 基础生命恢复
+     */
     GetBaseHealthRegen(): number;
     /**
      * Returns base magical armor value.
@@ -1768,21 +1818,29 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Gets the base max health value.
      */
     GetBaseMaxHealth(): number;
-    /** @both */
+    /**
+     * 固有移动速度
+     *
+     * @both
+     */
     GetBaseMoveSpeed(): number;
     /**
      * Returns the vision range after modifiers.
      */
     GetBaseNightTimeVisionRange(): number;
     /**
-     * This Mana regen is derived from constant bonuses like Basilius.
+     * 额外魔法恢复
      */
     GetBonusManaRegen(): number;
     GetCastPoint(attack: boolean): number;
-    /** @both */
+    /**
+     * 施法距离加成
+     *
+     * @both
+     */
     GetCastRangeBonus(): number;
     /**
-     * Get clone source (Meepo Prime, if this is a Meepo).
+     * 克隆体本体
      */
     GetCloneSource(): CDOTA_BaseNPC | undefined;
     /**
@@ -1791,7 +1849,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     GetCollisionPadding(): number;
-    /** @both */
+    /**
+     * 冷却时间倍率
+     *
+     * @both
+     */
     GetCooldownReduction(): number;
     GetCreationTime(): number;
     /**
@@ -1820,23 +1882,26 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     GetDamageMin(): number;
     /**
-     * Returns the vision range after modifiers.
+     * 白天视野
      *
      * @both
      */
     GetDayTimeVisionRange(): number;
     /**
-     * Get the XP bounty on this unit.
+     * 死亡经验给与
      */
     GetDeathXP(): number;
     /**
-     * Attack speed expressed as constant value.
+     * 面板攻击速度
      */
     GetDisplayAttackSpeed(): number;
+    /**
+     * 闪避
+     */
     GetEvasion(): number;
     GetForceAttackTarget(): CDOTA_BaseNPC | undefined;
     /**
-     * Get the gold bounty on this unit.
+     * 死亡金钱给与
      */
     GetGoldBounty(): number;
     /** @both */
@@ -1851,15 +1916,18 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     GetHealthPercent(): number;
+    /**
+     * 总生命恢复
+     */
     GetHealthRegen(): number;
     /**
-     * Get the collision hull radius of this NPC.
+     * 边界体积
      *
      * @both
      */
     GetHullRadius(): number;
     /**
-     * Returns speed after all modifiers.
+     * 移动速度
      *
      * @both
      */
@@ -1870,7 +1938,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     GetIdealSpeedNoSlows(): number;
-    /** @both */
+    /**
+     * 额外攻击速度
+     *
+     * @both
+     */
     GetIncreasedAttackSpeed(ignoreTempAttackSpeed: boolean): number;
     /**
      * Returns the initial waypoint goal for this NPC.
@@ -1894,7 +1966,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     GetLastIdleChangeTime(): number;
     /**
-     * Returns the level of this unit.
+     * 单位等级
      *
      * @both
      */
@@ -1913,7 +1985,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Get the percent of mana remaining.
      */
     GetManaPercent(): number;
-    /** @both */
+    /**
+     * 总魔法恢复
+     *
+     * @both
+     */
     GetManaRegen(): number;
     /**
      * Get the maximum gold bounty for this unit.
@@ -1929,7 +2005,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Get the minimum gold bounty for this unit.
      */
     GetMinimumGoldBounty(): number;
-    /** @both */
+    /**
+     * 原始模型大小
+     *
+     * @both
+     */
     GetModelRadius(): number;
     /**
      * How many modifiers does this unit have?
@@ -1960,27 +2040,31 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     GetNeverMoveToClearSpace(): boolean;
     /**
-     * Returns the vision range after modifiers.
+     * 夜间视野
      *
      * @both
      */
     GetNightTimeVisionRange(): number;
-    /** @both */
+    /**
+     * 敌对阵营
+     *
+     * @both
+     */
     GetOpposingTeamNumber(): DOTATeam_t;
     /**
-     * Get the collision hull radius (including padding) of this NPC.
+     * 碰撞体积
      *
      * @both
      */
     GetPaddedCollisionRadius(): number;
     /**
-     * Returns base physical armor value.
+     * 基础护甲
      *
      * @both
      */
     GetPhysicalArmorBaseValue(): number;
     /**
-     * Returns current physical armor value.
+     * 总护甲
      *
      * @both
      */
@@ -1995,13 +2079,29 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     GetPlayerOwnerID(): PlayerID;
+    /**
+     * 弹道速度
+     */
     GetProjectileSpeed(): number;
+    /**
+     * 弹道特效名称
+     */
     GetRangedProjectileName(): string;
     GetRangeToUnit(npc: CDOTA_BaseNPC): number;
     GetRemainingPathLength(): number;
-    /** @both */
+    /**
+     * 当前攻击间隔
+     *
+     * @both
+     */
     GetSecondsPerAttack(ignoreTempAttackSpeed: boolean): number;
+    /**
+     * 技能增强
+     */
     GetSpellAmplification(baseOnly: boolean): number;
+    /**
+     * 状态抗性
+     */
     GetStatusResistance(): number;
     /**
      * Get how much gold has been spent on ability upgrades.
@@ -2018,7 +2118,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     GetUnitLocToken(): string;
     /**
-     * Get the name of this unit.
+     * 单位名称
      *
      * @both
      */
@@ -2034,14 +2134,18 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     HasAnyActiveAbilities(): boolean;
     /** @both */
     HasAttackCapability(): boolean;
-    /** @both */
+    /**
+     * 具有空中视野
+     *
+     * @both
+     */
     HasFlyingVision(): boolean;
     /** @both */
     HasFlyMovementCapability(): boolean;
     /** @both */
     HasGroundMovementCapability(): boolean;
     /**
-     * Does this unit have an inventory.
+     * 拥有物品栏
      */
     HasInventory(): boolean;
     /**
@@ -2083,17 +2187,24 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     InterruptChannel(): void;
     InterruptMotionControllers(findClearSpace: boolean): void;
     /**
-     * Is this unit alive?
+     * 存活
      */
     IsAlive(): boolean;
     /**
-     * Is this unit an Ancient?
+     * 远古单位
      *
      * @both
      */
     IsAncient(): boolean;
-    /** @both */
+    /**
+     * 攻击免疫
+     *
+     * @both
+     */
     IsAttackImmune(): boolean;
+    /**
+     * 正在攻击
+     */
     IsAttacking(): boolean;
     IsAttackingEntity(entity: CDOTA_BaseNPC): boolean;
     /**
@@ -2102,8 +2213,15 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     IsBarracks(): this is CDOTA_BaseNPC_Building;
-    /** @both */
+    /**
+     * 失去视野
+     *
+     * @both
+     */
     IsBlind(): boolean;
+    /**
+     * 无物理伤害格挡
+     */
     IsBlockDisabled(): boolean;
     /**
      * Is this unit a boss?
@@ -2116,20 +2234,24 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     IsBossCreature(): boolean;
     /**
-     * Is this unit a building?
+     * 建筑
      *
      * @both
      */
     IsBuilding(): this is CDOTA_BaseNPC_Building;
     /**
-     * Is this unit currently channeling a spell?
+     * 持续施法中
      */
     IsChanneling(): boolean;
     /**
-     * Is this unit a clone? (Meepo).
+     * 分则能成克隆体
      */
     IsClone(): this is CDOTA_BaseNPC_Hero;
-    /** @both */
+    /**
+     * 无法行动
+     *
+     * @both
+     */
     IsCommandRestricted(): boolean;
     /**
      * Is this unit a considered a hero for targeting purposes?
@@ -2138,7 +2260,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     IsConsideredHero(): boolean;
     /**
-     * Is this unit controlled by any non-bot player?
+     * 可控制
      *
      * @both
      */
@@ -2156,28 +2278,54 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     IsCreature(): this is CDOTA_BaseNPC_Creature;
     /**
-     * Is this unit a creep?
+     * 普通单位
      *
      * @both
      */
     IsCreep(): boolean;
     /**
-     * Is this unit a creep hero?
+     * 英雄级单位
      *
      * @both
      */
     IsCreepHero(): boolean;
+    /**
+     * 水平位移中
+     */
     IsCurrentlyHorizontalMotionControlled(): boolean;
+    /**
+     * 滞空位移中
+     */
     IsCurrentlyVerticalMotionControlled(): boolean;
-    /** @both */
+    /**
+     * 减益免疫
+     *
+     * @both
+     */
     IsDebuffImmune(): boolean;
-    /** @both */
+    /**
+     * 缴械
+     *
+     * @both
+     */
     IsDisarmed(): boolean;
-    /** @both */
+    /**
+     * 被支配标记
+     *
+     * @both
+     */
     IsDominated(): boolean;
-    /** @both */
+    /**
+     * 禁用闪避
+     *
+     * @both
+     */
     IsEvadeDisabled(): boolean;
-    /** @both */
+    /**
+     * 恐惧
+     *
+     * @both
+     */
     IsFeared(): boolean;
     /**
      * Is this unit an Ancient?
@@ -2185,7 +2333,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     IsFort(): this is CDOTA_BaseNPC_Building;
-    /** @both */
+    /**
+     * 动作冻结
+     *
+     * @both
+     */
     IsFrozen(): boolean;
     /**
      * Is this a hero or hero illusion?
@@ -2197,13 +2349,21 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Is this a Hero Ward?
      */
     IsHeroWard(): boolean;
-    /** @both */
+    /**
+     * 妖术
+     *
+     * @both
+     */
     IsHexed(): boolean;
     /**
-     * Is this creature currently idle?
+     * 空闲状态
      */
     IsIdle(): boolean;
-    /** @both */
+    /**
+     * 幻象
+     *
+     * @both
+     */
     IsIllusion(): boolean;
     /**
      * Ask whether this unit is in range of the specified shop.
@@ -2215,30 +2375,57 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @client
      */
     IsInventoryEnabled(): boolean;
-    /** @both */
+    /**
+     * 隐身
+     *
+     * @both
+     */
     IsInvisible(): boolean;
-    /** @both */
+    /**
+     * 无敌
+     *
+     * @both
+     */
     IsInvulnerable(): boolean;
-    /** @both */
+    /**
+     * 低攻击优先级
+     *
+     * @both
+     */
     IsLowAttackPriority(): boolean;
-    /** @both */
+    /**
+     * 技能免疫
+     *
+     * @both
+     */
     IsMagicImmune(): boolean;
+    /**
+     * 移动受损状态
+     */
     IsMovementImpaired(): boolean;
     /**
-     * Is this unit moving?
+     * 正在移动
      *
      * @both
      */
     IsMoving(): boolean;
-    /** @both */
+    /**
+     * 锁闭
+     *
+     * @both
+     */
     IsMuted(): boolean;
     /**
-     * Is this a neutral?
+     * 中立生物
      *
      * @both
      */
     IsNeutralUnitType(): boolean;
-    /** @both */
+    /**
+     * 睡眠
+     *
+     * @both
+     */
     IsNightmared(): boolean;
     IsOpposingTeam(team: DOTATeam_t): boolean;
     /**
@@ -2247,7 +2434,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     IsOther(): boolean;
-    /** @both */
+    /**
+     * 隐藏
+     *
+     * @both
+     */
     IsOutOfGame(): boolean;
     /**
      * Is this unit owned by any non-bot player?
@@ -2262,6 +2453,9 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     IsPhantom(): boolean;
     IsPhantomBlocker(): boolean;
+    /**
+     * 相位状态
+     */
     IsPhased(): boolean;
     IsPositionInRange(position: Vector, range: number): boolean;
     /**
@@ -2276,31 +2470,65 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     IsRealHero(): this is CDOTA_BaseNPC_Hero;
+    /**
+     * 重生中
+     */
     IsReincarnating(): boolean;
-    /** @both */
+    /**
+     * 缠绕
+     *
+     * @both
+     */
     IsRooted(): boolean;
     /**
      * Is this a shrine?
      */
     IsShrine(): this is CDOTA_BaseNPC_Building;
-    /** @both */
+    /**
+     * 沉默
+     *
+     * @both
+     */
     IsSilenced(): boolean;
-    /** @both */
+    /**
+     * 可被反补
+     *
+     * @both
+     */
     IsSpeciallyDeniable(): boolean;
-    /** @both */
+    /**
+     * 无法被反补
+     *
+     * @both
+     */
     IsSpeciallyUndeniable(): boolean;
-    /** @both */
+    /**
+     * 强幻象
+     *
+     * @both
+     */
     IsStrongIllusion(): boolean;
-    /** @both */
+    /**
+     * 眩晕
+     *
+     * @both
+     */
     IsStunned(): boolean;
     /**
-     * Is this unit summoned?
+     * 召唤单位
      *
      * @both
      */
     IsSummoned(): boolean;
-    /** @both */
+    /**
+     * 嘲讽
+     *
+     * @both
+     */
     IsTaunted(): boolean;
+    /**
+     * 风暴双雄克隆体
+     */
     IsTempestDouble(): this is CDOTA_BaseNPC_Hero;
     /**
      * Is this a tower?
@@ -2308,15 +2536,22 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * @both
      */
     IsTower(): this is CDOTA_BaseNPC_Building;
+    /**
+     * 克敌机先
+     */
     IsUnableToMiss(): boolean;
-    /** @both */
+    /**
+     * 无法选中
+     *
+     * @both
+     */
     IsUnselectable(): boolean;
     /** @client */
     IsUntargetable(): boolean;
     /** @both */
     IsUntargetableFrom(targettingSource: object): boolean;
     /**
-     * Is this a Ward?
+     * 守卫
      */
     IsWard(): boolean;
     /**
@@ -2324,7 +2559,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     IsZombie(): boolean;
     /**
-     * Kills this NPC, with the params Ability and Attacker.
+     * 击杀
      */
     Kill(ability: CDOTABaseAbility | undefined, attacker: CDOTA_BaseNPC | undefined): void;
     /**
@@ -2365,18 +2600,42 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Move to a target to attack.
      */
     MoveToTargetToAttack(target: CDOTA_BaseNPC): void;
-    /** @both */
+    /**
+     * 隐藏单位生命条
+     *
+     * @both
+     */
     NoHealthBar(): boolean;
-    /** @both */
+    /**
+     * 非跟随目标
+     *
+     * @both
+     */
     NoTeamMoveTo(): boolean;
-    /** @both */
+    /**
+     * 选择组忽略置入
+     *
+     * @both
+     */
     NoTeamSelect(): boolean;
     NotifyWearablesOfModelChange(originalModel: boolean): void;
-    /** @both */
+    /**
+     * 隐藏小地图图标
+     *
+     * @both
+     */
     NotOnMinimap(): boolean;
-    /** @both */
+    /**
+     * 对敌无小地图标
+     *
+     * @both
+     */
     NotOnMinimapForEnemies(): boolean;
-    /** @both */
+    /**
+     * 无碰撞体积
+     *
+     * @both
+     */
     NoUnitCollision(): boolean;
     /**
      * Tells the underlying AI to move in the given direction, skipping Dota orders.
@@ -2413,7 +2672,11 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Play a VCD on the NPC.
      */
     PlayVCD(vcd: string): void;
-    /** @both */
+    /**
+     * 共享视野
+     *
+     * @both
+     */
     ProvidesVision(): boolean;
     Purge(
         removePositiveBuffs: boolean,
@@ -2508,12 +2771,12 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     RemoveModifierByNameAndCaster(scriptName: string, caster: CDOTA_BaseNPC): void;
     /**
-     * Remove the no draw flag.
+     * 移除不可见标记
      */
     RemoveNoDraw(): void;
     RemoveVerticalMotionController(buff: CDOTA_Buff): void;
     /**
-     * Respawns the target unit if it can be respawned.
+     * 复活单位
      */
     RespawnUnit(): void;
     /**
@@ -2542,6 +2805,9 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Set the ability by index.
      */
     SetAbilityByIndex(ability: CDOTABaseAbility, index: number): void;
+    /**
+     * 设置攻击警戒距离
+     */
     SetAcquisitionRange(range: number): void;
     /**
      * Combat involving this creature will have this weight added to the music calcuations.
@@ -2553,6 +2819,9 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     SetAggroTarget(aggroTarget: CDOTA_BaseNPC): void;
     SetAttackCapability(attackCapabilities: DOTAUnitAttackCapability_t): void;
     SetAttacking(attackTarget: CDOTA_BaseNPC | undefined): void;
+    /**
+     * 设置基础攻击间隔
+     */
     SetBaseAttackTime(baseAttackTime: number): void;
     /**
      * Sets the maximum base damage.
@@ -2562,11 +2831,17 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      * Sets the minimum base damage.
      */
     SetBaseDamageMin(min: number): void;
+    /**
+     * 设置固有生命恢复
+     */
     SetBaseHealthRegen(healthRegen: number): void;
     /**
      * Sets base magical armor value.
      */
     SetBaseMagicalResistanceValue(magicalResistanceValue: number): void;
+    /**
+     * 设置固有魔法恢复
+     */
     SetBaseManaRegen(manaRegen: number): void;
     /**
      * Set a new base max health value.
@@ -2574,7 +2849,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     SetBaseMaxHealth(baseMaxHealth: number): void;
     SetBaseMoveSpeed(moveSpeed: number): void;
     /**
-     * Set whether or not this unit is allowed to sell items (bCanSellItems).
+     * 禁止/允许出售物品
      */
     SetCanSellItems(canSell: boolean): void;
     /**
@@ -2594,19 +2869,22 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     SetDayTimeVisionRange(range: number): void;
     /**
-     * Set the XP bounty on this unit.
+     * 设置击杀经验
      */
     SetDeathXP(xpBounty: number): void;
+    /**
+     * 设置跟随距离
+     */
     SetFollowRange(followRange: number): void;
     SetForceAttackTarget(npc: CDOTA_BaseNPC | undefined): void;
     SetForceAttackTargetAlly(npc: CDOTA_BaseNPC | undefined): void;
     /**
-     * Set if this unit has an inventory.
+     * 封禁/解封物品栏
      */
     SetHasInventory(hasInventory: boolean): void;
     SetHealthBarOffsetOverride(offset: number): void;
     /**
-     * Set the collision hull radius of this NPC.
+     * 设置边界体积
      */
     SetHullRadius(hullRadius: number): void;
     SetIdleAcquire(idleAcquire: boolean): void;
@@ -2627,7 +2905,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     SetMaximumGoldBounty(goldBountyMax: number): void;
     /**
-     * Set the maximum mana of this unit.
+     * 设置最大魔法值
      */
     SetMaxMana(maxMana: number): void;
     /**
@@ -2671,7 +2949,13 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
     SetShouldComputeRemainingPathLength(compute: boolean): void;
     SetShouldDoFlyHeightVisual(shouldVisuallyFly: boolean): void;
     SetStolenScepter(stolenScepter: boolean): void;
+    /**
+     * 开启/关闭单位复活
+     */
     SetUnitCanRespawn(canRespawn: boolean): void;
+    /**
+     * 设定单位名称
+     */
     SetUnitName(name: string): void;
     ShouldIdleAcquire(): boolean;
     /**
@@ -2731,7 +3015,7 @@ declare interface CDOTA_BaseNPC extends CBaseAnimatingOverlay {
      */
     UnHideAbilityToSlot(abilityName: string, replacedAbilityName: string): void;
     /**
-     * Can the unit respawn?
+     * 可复活
      *
      * @both
      */
@@ -2778,7 +3062,7 @@ declare interface CDOTA_BaseNPC_Creature extends CDOTA_BaseNPC {
      */
     IsChampion(): boolean;
     /**
-     * Is this creature respawning?
+     * 重生中
      */
     IsReincarnating(): boolean;
     /**
@@ -2902,14 +3186,24 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
      */
     GetAbilityPoints(): number;
     GetAdditionalOwnedUnits(): CDOTA_BaseNPC[];
-    /** @both */
+    /**
+     * 总敏捷
+     *
+     * @both
+     */
     GetAgility(): number;
+    /**
+     * 敏捷成长
+     */
     GetAgilityGain(): number;
     /**
      * Value is stored in PlayerResource.
      */
     GetAssists(): number;
     GetAttacker(index: number): number;
+    /**
+     * 基础敏捷
+     */
     GetBaseAgility(): number;
     /**
      * Hero damage is also affected by attributes.
@@ -2919,12 +3213,21 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
      * Hero damage is also affected by attributes.
      */
     GetBaseDamageMin(): number;
+    /**
+     * 基础智力
+     */
     GetBaseIntellect(): number;
     /**
-     * Returns the base mana regen.
+     * 基础魔法恢复
      */
     GetBaseManaRegen(): number;
+    /**
+     * 基础力量
+     */
     GetBaseStrength(): number;
+    /**
+     * 属性攻击力
+     */
     GetBonusDamageFromPrimaryStat(): number;
     /**
      * Return float value for the amount of time left on cooldown for this hero's buyback.
@@ -2952,19 +3255,36 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
      */
     GetDenies(): number;
     /**
-     * Returns gold amount for the player owning this hero.
+     * 当前金钱
      */
     GetGold(): number;
+    /**
+     * 死亡金钱给与
+     */
     GetGoldBounty(): number;
-    /** @both */
+    /**
+     * 命石ID
+     *
+     * @both
+     */
     GetHeroFacetID(): number;
+    /**
+     * 英雄ID
+     */
     GetHeroID(): number;
     /**
-     * Hero attack speed is also affected by agility.
+     * 额外攻击速度
      */
     GetIncreasedAttackSpeed(ignoreTempAttackSpeed: boolean): number;
-    /** @both */
+    /**
+     * 总智力
+     *
+     * @both
+     */
     GetIntellect(skipNoConsume: boolean): number;
+    /**
+     * 智力成长
+     */
     GetIntellectGain(): number;
     /**
      * Value is stored in PlayerResource.
@@ -2980,13 +3300,16 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
     GetNumItemsInInventory(): number;
     GetNumItemsInStash(): number;
     /**
-     * Hero armor is affected by attributes.
+     * 基础护甲
      */
     GetPhysicalArmorBaseValue(): number;
     /**
-     * Returns player ID of the player owning this hero.
+     * 玩家ID
      */
     GetPlayerID(): PlayerID;
+    /**
+     * 英雄类型
+     */
     GetPrimaryAttribute(): Attributes;
     GetPrimaryStatValue(): number;
     /**
@@ -2994,23 +3317,39 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
      */
     GetReplicatingOtherHero(): CDOTA_BaseNPC_Hero | undefined;
     /**
-     * Is this hero prevented from respawning?
+     * 禁用复活
      */
     GetRespawnsDisabled(): boolean;
+    /**
+     * 复活所需时间
+     */
     GetRespawnTime(): number;
     /**
      * Value is stored in PlayerResource.
      */
     GetStreak(): number;
-    /** @both */
+    /**
+     * 总力量
+     *
+     * @both
+     */
     GetStrength(): number;
+    /**
+     * 力量成长
+     */
     GetStrengthGain(): number;
+    /**
+     * 复活剩余时间
+     */
     GetTimeUntilRespawn(): number;
     /**
      * Get wearable entity in slot (slot).
      */
     GetTogglableWearable(slotType: DOTASlotType_t): CBaseAnimatingActivity | undefined;
     HasAnyAvailableInventorySpace(): boolean;
+    /**
+     * 具有空中视野
+     */
     HasFlyingVision(): boolean;
     HasOwnerAbandoned(): boolean;
     HasRoomForItem(itemName: string, includeStashCombines: boolean, allowSelling: boolean): number;
@@ -3055,7 +3394,13 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
      */
     IncrementStreak(): void;
     IsBuybackDisabledByDevilsBargain(): boolean;
+    /**
+     * 重生中
+     */
     IsReincarnating(): boolean;
+    /**
+     * 储藏处可用
+     */
     IsStashEnabled(): boolean;
     KilledHero(hero: CDOTA_BaseNPC_Hero, inflictor: CDOTABaseAbility | undefined): void;
     /**
@@ -3106,7 +3451,7 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
      */
     SetCustomDeathXP(value: number): void;
     /**
-     * Sets the gold amount for the player owning this hero.
+     * 设置金钱
      */
     SetGold(gold: number, reliable: boolean): void;
     SetPlayerID(playerId: PlayerID): void;
@@ -3121,12 +3466,18 @@ declare interface CDOTA_BaseNPC_Hero extends CDOTA_BaseNPC {
     SetRespawnsDisabled(disableRespawns: boolean): void;
     SetStashEnabled(enabled: boolean): void;
     SetTimeUntilRespawn(time: number): void;
+    /**
+     * 飞行视觉效果
+     */
     ShouldDoFlyHeightVisual(): boolean;
     SpendGold(cost: number, reason: EDOTA_ModifyGold_Reason): void;
     /**
      * This upgrades the passed ability if it exists and the hero has enough ability points.
      */
     UpgradeAbility(ability: CDOTABaseAbility): void;
+    /**
+     * 可重生
+     */
     WillReincarnate(): boolean;
     __kind__: 'instance';
 }
@@ -3212,7 +3563,11 @@ declare interface CDOTA_Buff {
      * @both
      */
     Destroy(): void;
-    /** @both */
+    /**
+     * 结束时移除
+     *
+     * @both
+     */
     DestroyOnExpire(): boolean;
     /**
      * Run all associated refresh functions on this modifier as if it was re-applied.
@@ -3221,52 +3576,76 @@ declare interface CDOTA_Buff {
      */
     ForceRefresh(): void;
     /**
-     * Get the ability that generated the modifier.
+     * 来源技能
      *
      * @both
      */
     GetAbility(): CDOTABaseAbility | undefined;
     /**
-     * Returns aura stickiness (default 0.5).
+     * 光环粘滞时间
      *
      * @both
      */
     GetAuraDuration(): number;
     /**
-     * Returns the owner of the aura modifier, that applied this modifier. Always `nil` on the client.
+     * 光环拥有者
      *
      * @both
      */
     GetAuraOwner(): CDOTA_BaseNPC | undefined;
     /**
-     * Get the owner of the ability responsible for the modifier.
+     * 施加来源
      *
      * @both
      */
     GetCaster(): CDOTA_BaseNPC | undefined;
-    /** @both */
+    /**
+     * Modifier类名
+     *
+     * @both
+     */
     GetClass(): string;
-    /** @both */
+    /**
+     * 首次创建时间
+     *
+     * @both
+     */
     GetCreationTime(): number;
-    /** @both */
+    /**
+     * 结束时间
+     *
+     * @both
+     */
     GetDieTime(): number;
-    /** @both */
+    /**
+     * 持续时间
+     *
+     * @both
+     */
     GetDuration(): number;
     /** @both */
     GetElapsedTime(): number;
-    /** @both */
+    /**
+     * 上次施加时间
+     *
+     * @both
+     */
     GetLastAppliedTime(): number;
     /** @both */
     GetName(): string;
     /**
-     * Get the unit the modifier is parented to.
+     * 作用单位
      *
      * @both
      */
     GetParent(): CDOTA_BaseNPC;
     /** @both */
     GetRemainingTime(): number;
-    /** @both */
+    /**
+     * Modifier ID
+     *
+     * @both
+     */
     GetSerialNumber(): number;
     /** @both */
     GetStackCount(): number;
@@ -3336,6 +3715,9 @@ declare const CDOTA_Item: DotaConstructor<CDOTA_Item>;
 declare const C_DOTA_Item: typeof CDOTA_Item;
 
 declare interface CDOTA_Item extends CDOTABaseAbility {
+    /**
+     * 可在主物品栏外使用
+     */
     CanBeUsedOutOfInventory(): boolean;
     /** @client */
     CanOnlyPlayerHeroPickup(): boolean;
@@ -3343,6 +3725,9 @@ declare interface CDOTA_Item extends CDOTABaseAbility {
      * Get the container for this item.
      */
     GetContainer(): CDOTA_Item_Physical | undefined;
+    /**
+     * 物品价格
+     */
     GetCost(): number;
     /**
      * Get the number of charges this item currently has.
@@ -3356,26 +3741,30 @@ declare interface CDOTA_Item extends CDOTABaseAbility {
      * @both
      */
     GetInitialCharges(): number;
-    /** @both */
+    /**
+     * 物品槽位
+     *
+     * @both
+     */
     GetItemSlot(): -1 | DOTAScriptInventorySlot_t;
     /**
      * Gets whether item is unequipped or ready.
      */
     GetItemState(): number;
     /**
-     * Get the parent for this item.
+     * 物品携带者
      */
     GetParent(): object;
     /**
-     * Get the purchaser for this item.
+     * 物品购买者
      */
     GetPurchaser(): CDOTA_BaseNPC | undefined;
     /**
-     * Get the purchase time of this item.
+     * 获取时间
      */
     GetPurchaseTime(): number;
     /**
-     * Get the number of secondary charges this item currently has.
+     * 次级能量点数
      *
      * @both
      */
@@ -3383,27 +3772,57 @@ declare interface CDOTA_Item extends CDOTABaseAbility {
     /** @both */
     GetShareability(): EShareAbility;
     /**
-     * Get the number of valueless charges this item currently has.
+     * 无效能量点数
      */
     GetValuelessCharges(): number;
     IsActiveNeutral(): boolean;
-    /** @both */
+    /**
+     * 特殊使用提示物品
+     *
+     * @both
+     */
     IsAlertableItem(): boolean;
-    /** @both */
+    /**
+     * 拾起物品时自动施放
+     *
+     * @both
+     */
     IsCastOnPickup(): boolean;
+    /**
+     * 可用于合成物品
+     */
     IsCombinable(): boolean;
+    /**
+     * 物品已锁定合成
+     */
     IsCombineLocked(): boolean;
     /** @both */
     IsDisassemblable(): boolean;
-    /** @both */
+    /**
+     * 物品可置于地面
+     *
+     * @both
+     */
     IsDroppable(): boolean;
-    /** @both */
+    /**
+     * 处于背包中
+     *
+     * @both
+     */
     IsInBackpack(): boolean;
     /** @both */
     IsItem(): this is CDOTA_Item;
-    /** @both */
+    /**
+     * 物品可被摧毁
+     *
+     * @both
+     */
     IsKillable(): boolean;
-    /** @both */
+    /**
+     * 物品已禁用
+     *
+     * @both
+     */
     IsMuted(): boolean;
     /**
      * Is this a permanent item?
@@ -3411,15 +3830,27 @@ declare interface CDOTA_Item extends CDOTABaseAbility {
      * @both
      */
     IsPermanent(): boolean;
-    /** @both */
+    /**
+     * 物品可购买
+     *
+     * @both
+     */
     IsPurchasable(): boolean;
     /** @both */
     IsRecipe(): boolean;
-    /** @both */
+    /**
+     * 已合成物品
+     *
+     * @both
+     */
     IsRecipeGenerated(): boolean;
     /** @both */
     IsSellable(): boolean;
-    /** @both */
+    /**
+     * 物品可堆叠
+     *
+     * @both
+     */
     IsStackable(): boolean;
     LaunchLoot(
         autoUse: boolean,
@@ -3448,7 +3879,11 @@ declare interface CDOTA_Item extends CDOTABaseAbility {
     ModifyNumValuelessCharges(charges: number): void;
     OnEquip(): void;
     OnUnequip(): void;
-    /** @both */
+    /**
+     * 含点数物品
+     *
+     * @both
+     */
     RequiresCharges(): boolean;
     SetCanBeUsedOutOfInventory(value: boolean): void;
     SetCastOnPickup(castOnPickUp: boolean): void;
@@ -3479,6 +3914,9 @@ declare interface CDOTA_Item extends CDOTABaseAbility {
     SetShareability(shareability: EShareAbility): void;
     SetStacksWithOtherOwners(stacksWithOtherOwners: boolean): void;
     SpendCharge(delayRemove: number): void;
+    /**
+     * 可与其他玩家物品堆叠
+     */
     StacksWithOtherOwners(): boolean;
     /**
      * Think this item.
@@ -3573,23 +4011,23 @@ declare interface CDOTA_Item_Lua extends CDOTA_Item {
      */
     CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult;
     /**
-     * Allows code overriding of the item texture shown in the HUD.
+     * 物品图标
      *
      * @client
      */
     GetAbilityTextureName(): string;
     /**
-     * Controls the size of the AOE casting cursor.
+     * 作用范围
      *
      * @client
      */
     GetAOERadius(): number;
     /**
-     * Returns abilities that are stolen simultaneously, or otherwise related in functionality.
+     * 主技能
      */
     GetAssociatedPrimaryAbilities(): string;
     /**
-     * Returns other abilities that are stolen simultaneously, or otherwise related in functionality.  Generally hidden abilities.
+     * 附属技能
      */
     GetAssociatedSecondaryAbilities(): string;
     /**
@@ -3617,19 +4055,19 @@ declare interface CDOTA_Item_Lua extends CDOTA_Item {
      */
     GetChannelledManaCostPerSecond(level: number): number;
     /**
-     * Return the channel start time of this ability.
+     * 持续施法开始时间
      *
      * @both
      */
     GetChannelStartTime(): number;
     /**
-     * Return the channel time of this ability.
+     * 持续施法时间
      *
      * @both
      */
     GetChannelTime(): number;
     /**
-     * Return who hears speech when this spell is cast.
+     * 语音类型
      */
     GetConceptRecipientType(): number;
     /**
@@ -3663,7 +4101,7 @@ declare interface CDOTA_Item_Lua extends CDOTA_Item {
      */
     GetCustomHudErrorMessage(reason: number): string;
     /**
-     * Return cast range of this ability, taking modifiers into account.
+     * 当前施法距离
      *
      * @both
      */
@@ -3681,7 +4119,7 @@ declare interface CDOTA_Item_Lua extends CDOTA_Item {
      */
     GetHealthCost(level: number): number;
     /**
-     * Returns the name of the modifier applied passively by this ability.
+     * 固有modifier
      */
     GetIntrinsicModifierName(): string;
     /**
@@ -3699,7 +4137,7 @@ declare interface CDOTA_Item_Lua extends CDOTA_Item {
      */
     IsHiddenAbilityCastable(): boolean;
     /**
-     * Returns true if this ability is hidden when stolen by Spell Steal.
+     * 被窃取后隐藏
      */
     IsHiddenWhenStolen(): boolean;
     /**
@@ -3709,11 +4147,11 @@ declare interface CDOTA_Item_Lua extends CDOTA_Item {
      */
     IsMuted(): boolean;
     /**
-     * Returns true if this ability is refreshed by Refresher Orb.
+     * 可刷新技能
      */
     IsRefreshable(): boolean;
     /**
-     * Returns true if this ability can be stolen by Spell Steal.
+     * 可被窃取技能
      */
     IsStealable(): boolean;
     /**
@@ -3793,7 +4231,7 @@ declare interface CDOTA_Item_Lua extends CDOTA_Item {
      */
     OnUpgrade(): void;
     /**
-     * Returns true if this ability will generate magic stick charges for nearby enemies.
+     * 是否触发魔棒充能
      */
     ProcsMagicStick(): boolean;
     /**
@@ -3875,15 +4313,19 @@ declare const CDOTA_Modifier_Lua: DotaConstructor<CDOTA_Modifier_Lua>;
 
 declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
     /**
-     * True/false if this modifier is active on illusions.
+     * 幻象可继承
      *
      * @both
      */
     AllowIllusionDuplicate(): boolean;
-    /** @both */
+    /**
+     * 可被自动攻击
+     *
+     * @both
+     */
     CanParentBeAutoAttacked(): boolean;
     /**
-     * True/false if this buff is removed when the duration expires.
+     * 结束时移除
      *
      * @both
      */
@@ -3895,7 +4337,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     GetAttributes(): DOTAModifierAttribute_t;
     /**
-     * Returns aura stickiness.
+     * 光环粘滞时间
      *
      * @both
      */
@@ -3907,7 +4349,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     GetAuraEntityReject(entity: CDOTA_BaseNPC): boolean;
     /**
-     * Return the range around the parent this aura tries to apply its buff.
+     * 光环范围
      *
      * @both
      */
@@ -3943,19 +4385,19 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     GetEffectAttachType(): ParticleAttachment_t;
     /**
-     * Return the name of the particle system that is created while this modifier is active.
+     * 粒子特效
      *
      * @both
      */
     GetEffectName(): string;
     /**
-     * Return the name of the hero effect particle system that is created while this modifier is active.
+     * 英雄粒子特效
      *
      * @both
      */
     GetHeroEffectName(): string;
     /**
-     * The name of the secondary modifier that will be applied by this modifier (if it is an aura).
+     * 光环施加的 modifier 名称
      *
      * @both
      */
@@ -3967,13 +4409,13 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     GetPriority(): modifierpriority;
     /**
-     * Return the name of the status effect particle system that is created while this modifier is active.
+     * 状态粒子特效
      *
      * @both
      */
     GetStatusEffectName(): string;
     /**
-     * Return the name of the buff icon to be shown for this modifier.
+     * 状态图标
      *
      * @both
      */
@@ -3985,13 +4427,13 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     HeroEffectPriority(): modifierpriority;
     /**
-     * True/false if this modifier is an aura.
+     * 光环状态
      *
      * @both
      */
     IsAura(): boolean;
     /**
-     * True/false if this aura provides buffs when the parent is dead.
+     * 死亡光环仍生效
      *
      * @both
      */
@@ -4003,21 +4445,25 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     IsDebuff(): boolean;
     /**
-     * True/false if this modifier should be displayed on the buff bar.
+     * 是否隐藏状态图标
      *
      * @both
      */
     IsHidden(): boolean;
-    /** @both */
+    /**
+     * 永久状态
+     *
+     * @both
+     */
     IsPermanent(): boolean;
     /**
-     * True/false if this modifier can be purged.
+     * 可被弱驱散
      *
      * @both
      */
     IsPurgable(): boolean;
     /**
-     * True/false if this modifier can be purged by strong dispels.
+     * 特殊仅强驱散
      *
      * @both
      */
@@ -4071,7 +4517,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     PiercesDebuffImmunity(): boolean;
     /**
-     * True/false if this modifier is removed when the parent dies.
+     * 死亡驱散
      *
      * @both
      */
@@ -4079,7 +4525,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
     /** @both */
     SetHasCustomTransmitterData(hasCustomData: boolean): void;
     /**
-     * Apply the overhead offset to the attached effect.
+     * 特效头顶偏移
      *
      * @both
      */
@@ -4091,8 +4537,10 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     StatusEffectPriority(): modifierpriority;
     /**
+     * 机器人额外分数（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     BotAttackScoreBonus?(): void;
     /**
@@ -4110,1258 +4558,1744 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     DeclareFunctions?(): modifierfunction[];
     /**
+     * 魔法伤害无效化（例：命运敕令）
+     *
      * @abstract
      * @both
      */
     GetAbsoluteNoDamageMagical?(event: ModifierAttackEvent): 0 | 1;
     /**
+     * 物理伤害无效化（例：守护天使）
+     *
      * @abstract
      * @both
      */
     GetAbsoluteNoDamagePhysical?(event: ModifierAttackEvent): 0 | 1;
     /**
+     * 纯粹伤害无效化（例：防御符文）
+     *
      * @abstract
      * @both
      */
     GetAbsoluteNoDamagePure?(event: ModifierAttackEvent): 0 | 1;
     /**
+     * 技能抵挡（例：林肯法球）
+     *
      * @abstract
      * @both
      */
     GetAbsorbSpell?(event: ModifierAbilityEvent): 0 | 1;
     /**
+     * 动画转变（例：太多了）
+     *
      * @abstract
      * @both
      */
     GetActivityTranslationModifiers?(): string;
     /**
+     * 可攻击虚无单位（例：超自然）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetAllowEtherealAttack?(): void;
     /**
+     * 无视攻击距离（例：飓风长戟）
+     *
      * @abstract
      * @both
      */
     GetAlwaysAllowAttack?(): 0 | 1;
     /**
+     * 固守原位仍自动攻击（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetAlwaysAutoAttackWhileHoldPosition?(): void;
     /**
+     * 攻击声音特效（例：太多了）
+     *
      * @abstract
      * @both
      */
     GetAttackSound?(): string;
     /**
+     * 活跃基础攻击力（例：灵幻兵械）
+     *
      * @abstract
      * @both
      */
     GetBaseAttackPostBonus?(): void;
     /**
+     * 定值白天视野（例：辰星破晓）
+     *
      * @abstract
      * @both
      */
     GetBonusDayVision?(): number;
     /**
+     * 百分比白天视野（例：邪道私语）
+     *
      * @abstract
      * @both
      */
     GetBonusDayVisionPercentage?(): void;
     /**
+     * 定值夜晚视野（例：月之祝福）
+     *
      * @abstract
      * @both
      */
     GetBonusNightVision?(): number;
     /**
+     * 特殊定值夜晚视野（例：银月之晶）
+     *
      * @abstract
      * @both
      */
     GetBonusNightVisionUnique?(): number;
     /**
+     * 百分比日夜视野（例：老版荒芜）
+     *
      * @abstract
      * @both
      */
     GetBonusVisionPercentage?(): number;
     /**
+     * 增益时间增强（例：安可）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetBuffAmplification?(): void;
     /**
+     * 物理纯粹转化攻击特效（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetConvertAttackPhysicalToPure?(): void;
     /**
+     * 致命一击倍率增加（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetCriticalStrikeBonus?(): void;
     /**
+     * 禁止自动攻击（例：相位转移）
+     *
      * @abstract
      * @both
      */
     GetDisableAutoAttack?(): 0 | 1;
     /**
+     * 生命冻结（例：冰晶爆轰）
+     *
      * @abstract
      * @both
      */
     GetDisableHealing?(): 0 | 1;
     /**
+     * 魔法获取无效化（例：神杖闪烁）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetDisableManaGain?(): void;
     /**
+     * 绝对白天视野上限设定（例：丛林之舞）
+     *
      * @abstract
      * @both
      */
     GetFixedDayVision?(): number;
     /**
+     * 绝对夜晚视野上限设定（例：丛林之舞）
+     *
      * @abstract
      * @both
      */
     GetFixedNightVision?(): number;
     /**
+     * 强制小地图显示（例：球状闪电）
+     *
      * @abstract
      * @both
      */
     GetForceDrawOnMinimap?(): 0 | 1;
     /**
+     * 幻象标识（例：幻象默认）
+     *
      * @abstract
      * @both
      */
     GetIsIllusion?(): 0 | 1;
     /**
+     * 百分比魔法抗性穿透（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetMagicalArmorPiercingPercentageTarget?(): void;
     /**
+     * 最低生命值设定（例：薄葬）
+     *
      * @abstract
      * @both
      */
     GetMinHealth?(): number;
     /**
+     * 最低魔法值设定（例：特别储备）
+     *
      * @abstract
      * @both
      */
     GetMinMana?(): void;
     /**
+     * 技能排布隐藏（例：感染）
+     *
      * @abstract
      * @both
      */
     GetModifierAbilityLayout?(): number;
     /**
+     * 提供技能点数（例：曲线学习）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierAbilityPoints?(): void;
     /**
+     * 额外掉落中立物品（例：丛林赠品）
+     *
      * @abstract
      * @both
      */
     GetModifierAdditionalNutralItemDrops?(): void;
     /**
+     * 特殊定值作用范围加成（例：缚灵索）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierAoEBonusConstant?(): void;
     /**
+     * 定值作用范围加成（例：亵渎之力）
+     *
      * @abstract
      * @both
      */
     GetModifierAoEBonusConstantStacking?(): void;
     /**
+     * 百分比作用范围加成（例：凶）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierAoEBonusPercentage?(): number;
     /**
+     * 攻击弹道交互高度增加（例：冰川）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackHeightBonus?(): void;
     /**
+     * 基础攻击前摇设定（例：严寒烧灼）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackPointConstant?(): number;
     /**
+     * 定值攻击距离（例：瞄准）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackRangeBonus?(): number;
     /**
+     * 百分比攻击距离（例：折跃耀光）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackRangeBonusPercentage?(): number;
     /**
+     * 特殊定值攻击距离（例：魔龙枪）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackRangeBonusUnique?(): number;
     /**
+     * 固有攻击距离设定（例：变形）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackRangeOverride?(): number;
     /**
+     * 突破攻速限制（例：战斗专注）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackSpeed_Limit?(): void;
     /**
+     * 绝对攻速上限设定（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackSpeedAbsoluteMax?(): void;
     /**
+     * 攻击速度设定（例：稳如磐石）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackSpeedBaseOverride?(): number;
     /**
+     * 定值攻击速度（例：超强力量）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackSpeedBonus_Constant?(): number;
     /**
+     * 百分比攻击速度（例：长大）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackSpeedPercentage?(): number;
     /**
+     * 百分比减攻速调整（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierAttackSpeedReductionPercentage?(): number;
     /**
+     * 被攻击不触发特效（例：翔影之钗）
+     *
      * @abstract
      * @both
      */
     GetModifierAvoidAttackProcs?(): void;
     /**
+     * 首端伤害无效化（例：回光返照）
+     *
      * @abstract
      * @both
      */
     GetModifierAvoidDamage?(event: ModifierAttackEvent): number;
     /**
+     * 尾端伤害无效化（例：虚妄之诺）
+     *
      * @abstract
      * @both
      */
     GetModifierAvoidDamageAfterReductions?(event: ModifierAttackEvent): number;
     /**
+     * 技能吸收（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierAvoidSpell?(event: ModifierAttackEvent): 0 | 1;
     /**
+     * 百分比敏捷护甲增强（例：内在优势）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseArmorPerAgiBonusPercentage?(): void;
     /**
+     * 定值基础攻击力（例：长大）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseAttack_BonusDamage?(): number;
     /**
+     * 百分比敏捷攻速增强（例：内在优势）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseAttackSpeedPerAgiBonusPercentage?(): void;
     /**
+     * 基础攻击间隔设定（例：化学狂暴）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseAttackTimeConstant?(): number;
     /**
+     * 定值基础攻击间隔调整（例：神杖虚妄之诺）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBaseAttackTimeConstant_Adjust?(): number;
     /**
+     * 百分比基础攻击间隔（例：中立附魔粗暴）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBaseAttackTimePercentage?(): number;
     /**
+     * 百分比基础额外攻击力（例：复仇光环）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseDamageOutgoing_Percentage?(event: ModifierAttackEvent): number;
     /**
+     * 特殊百分比基础额外攻击力（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseDamageOutgoing_PercentageUnique?(event: ModifierAttackEvent): number;
     /**
+     * 百分比力量生命恢复增强（例：内在优势）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseHpRegenPerStrBonusPercentage?(): void;
     /**
+     * 百分比智力魔法抗性增强（例：内在优势）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseMagicResistPerIntBonusPercentage?(): void;
     /**
+     * 百分比智力魔法恢复增强（例：内在优势）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseManaRegenPerIntBonusPercentage?(): void;
     /**
+     * 基础魔法恢复无效化（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierBaseRegen?(): number;
     /**
+     * 变为敏捷（例：潮涨）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBecomeAgility?(): void;
     /**
+     * 变为智力（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBecomeIntelligence?(): void;
     /**
+     * 变为力量（例：潮落）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBecomeStrength?(): void;
     /**
+     * 变为全才（例：老版冥界亚龙天赋）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBecomeUniversal?(): 0 | 1;
     /**
+     * 额外攻击百分比调整（例：灵幻兵械）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBonusDamageOutgoing_Percentage?(): void;
     /**
+     * 疗伤莲花效果增强（例：赛莉蒙妮的信徒）
+     *
      * @abstract
      * @both
      */
     GetModifierBonusLotusHeal?(): void;
     /**
+     * 定值额外敏捷（例：欢欣之刃）
+     *
      * @abstract
      * @both
      */
     GetModifierBonusStats_Agility?(): number;
     /**
+     * 百分比总敏捷（例：射手天赋）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBonusStats_Agility_Percentage?(): number;
     /**
+     * 定值额外智力（例：魔力法杖）
+     *
      * @abstract
      * @both
      */
     GetModifierBonusStats_Intellect?(): number;
     /**
+     * 百分比总智力（例：通灵头带）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBonusStats_Intellect_Percentage?(): number;
     /**
+     * 定值额外力量（例：食人魔之斧）
+     *
      * @abstract
      * @both
      */
     GetModifierBonusStats_Strength?(): number;
     /**
+     * 百分比总力量（例：血肉傀儡）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBonusStats_Strength_Percentage?(): number;
     /**
+     * 上下坡落空概率加成（例：制高点）
+     *
      * @abstract
      * @both
      */
     GetModifierBonusUphillMissChance?(): void;
     /**
+     * 百分比买活惩罚（例：恶魔的交易）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierBuybackPenaltyPercent?(): void;
     /**
+     * 可攻击树木（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierCanAttackTrees?(): 0 | 1;
     /**
+     * 特殊定值施法距离（例：以太透镜）
+     *
      * @abstract
      * @both
      */
     GetModifierCastRangeBonus?(event: ModifierAbilityEvent): number;
     /**
+     * 百分比施法距离（例：折跃耀光）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierCastRangeBonusPercentage?(event: ModifierAbilityEvent): number;
     /**
+     * 定值施法距离（例：奥术至尊）
+     *
      * @abstract
      * @both
      */
     GetModifierCastRangeBonusStacking?(event: ModifierAbilityEvent): number;
     /**
+     * 目标额外施法距离（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierCastRangeBonusTarget?(event: ModifierAbilityEvent): number;
     /**
+     * 改变技能数值（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierChangeAbilityValue?(): void;
     /**
+     * 定值死亡损失金钱（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierConstantDeathGoldCost?(): number;
     /**
+     * 定值生命恢复（例：活性护甲）
+     *
      * @abstract
      * @both
      */
     GetModifierConstantHealthRegen?(): number;
     /**
+     * 定值魔法恢复（例：奥术光环）
+     *
      * @abstract
      * @both
      */
     GetModifierConstantManaRegen?(): number;
     /**
+     * 特殊定值魔法恢复（例：天鹰之戒）
+     *
      * @abstract
      * @both
      */
     GetModifierConstantManaRegenUnique?(): number;
     /**
+     * 特殊定值复活时间（例：吸血灵魂）
+     *
      * @abstract
      * @both
      */
     GetModifierConstantRespawnTime?(): number;
     /**
+     * 通过生命值施放技能（例：血魔法）
+     *
      * @abstract
      * @both
      */
     GetModifierConvertManaCostToHealthCost?(): void;
     /**
+     * 定值冷却时间降低（例：神圣劝化）
+     *
      * @abstract
      * @both
      */
     GetModifierCooldownReduction_Constant?(event: ModifierAbilityEvent): number;
     /**
+     * 额外幻象产生概率（例：混沌之军）
+     *
      * @abstract
      * @both
      */
     GetModifierCreateBonusIllusionChance?(): void;
     /**
+     * 额外幻象产生数量（例：混沌之军）
+     *
      * @abstract
      * @both
      */
     GetModifierCreateBonusIllusionCount?(): void;
     /**
+     * 反补生命百分比调整（例：盛宴）
+     *
      * @abstract
      * @both
      */
     GetModifierCreepDenyPercent?(): void;
     /**
+     * 百分比总攻击力（例：虚弱）
+     *
      * @abstract
      * @both
      */
     GetModifierDamageOutgoing_Percentage?(event: ModifierAttackEvent): number;
     /**
+     * 幻象攻击伤害调整（例：幻象默认）
+     *
      * @abstract
      * @both
      */
     GetModifierDamageOutgoing_Percentage_Illusion?(event: ModifierAttackEvent): number;
     /**
+     * 幻象特殊攻击伤害调整（例：幻象对建筑肉山）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierDamageOutgoing_Percentage_Illusion_Amplify?(): void;
     /**
+     * 特殊百分比总攻击调整（例：窒碍短匕）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierDamageOutgoing_PercentageMultiplicative?(): void;
     /**
+     * 朝向锁定（例：护身甲盾）
+     *
      * @abstract
      * @both
      */
     GetModifierDisableTurning?(): 0 | 1;
     /**
+     * 可拆分任意物品（例：拆东补西）
+     *
      * @abstract
      * @both
      */
     GetModifierDisassembleAnything?(): void;
     /**
+     * 持续躲避（例：老版扫射）
+     *
      * @abstract
      * @both
      */
     GetModifierDodgeProjectile?(): 0 | 1;
     /**
+     * 闪避（例：魅影无形）
+     *
      * @abstract
      * @both
      */
     GetModifierEvasion_Constant?(event: ModifierAttackEvent): number;
     /**
+     * 特殊定值最大生命值（例：感染）
+     *
      * @abstract
      * @both
      */
     GetModifierExtraHealthBonus?(): number;
     /**
+     * 百分比最大生命值（例：磐石光环）
+     *
      * @abstract
      * @both
      */
     GetModifierExtraHealthPercentage?(): number;
     /**
+     * 特殊定值最大魔法值（例：灵魂之戒）
+     *
      * @abstract
      * @both
      */
     GetModifierExtraManaBonus?(): number;
     /**
+     * 百分比额外最大魔法值（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierExtraManaBonusPercentage?(): void;
     /**
+     * 百分比最大魔法值（例：空灵挂件）
+     *
      * @abstract
      * @both
      */
     GetModifierExtraManaPercentage?(): void;
     /**
+     * 特殊定值额外力量（例：腐朽）
+     *
      * @abstract
      * @both
      */
     GetModifierExtraStrengthBonus?(): number;
     /**
+     * 固定攻击间隔（例：怒拳破）
+     *
      * @abstract
      * @both
      */
     GetModifierFixedAttackRate?(): number;
     /**
+     * 固定魔法恢复（例：死亡充能）
+     *
      * @abstract
      * @both
      */
     GetModifierFixedManaRegen?(): void;
     /**
+     * 最大生命值设定（例：坚毅之件）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierForceMaxHealth?(): void;
     /**
+     * 最大魔法值设定（例：血魔法）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierForceMaxMana?(): void;
     /**
+     * 更改视野阵营（例：热血运动）
+     *
      * @abstract
      * @both
      */
     GetModifierFoWTeam?(): void;
     /**
+     * 额外中立物品选项（例：三只手）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierHasBonusNeutralItemChoice?(): void;
     /**
+     * 施加方治疗调整（例：圣洁吊坠）
+     *
      * @abstract
      * @both
      */
     GetModifierHealAmplify_PercentageSource?(): void;
     /**
+     * 承受方治疗调整（例：薄葬）
+     *
      * @abstract
      * @both
      */
     GetModifierHealAmplify_PercentageTarget?(): void;
     /**
-     * Return value is a count of pips.
+     * 特殊生命条（例：攻击次数型单位）
      *
      * @abstract
      * @both
      */
     GetModifierHealthBarPips?(event: ModifierAttackEvent): number;
     /**
+     * 定值最大生命值（例：活力之球）
+     *
      * @abstract
      * @both
      */
     GetModifierHealthBonus?(): number;
     /**
+     * 定值生命消耗降低（例：德尊血式）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierHealthcostReduction_Constant?(): void;
     /**
+     * 百分比最大生命恢复（例：泉水回春）
+     *
      * @abstract
      * @both
      */
     GetModifierHealthRegenPercentage?(): number;
     /**
+     * 特殊百分比生命恢复（例：恐鳌之心）
+     *
      * @abstract
      * @both
      */
     GetModifierHealthRegenPercentageUnique?(): number;
     /**
+     * 命石覆盖（例：变形）
+     *
      * @abstract
      * @both
      */
     GetModifierHeroFacetOverride?(): void;
     /**
+     * 英雄等级体积（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierHeroLevelScale?(): void;
     /**
+     * 生命恢复调整（例：淬毒武器）
+     *
      * @abstract
      * @both
      */
     GetModifierHPRegenAmplify_Percentage?(): number;
     /**
+     * 生命恢复系数（例：无畏）
+     *
      * @abstract
      * @both
      */
     GetModifierHPRegenMultiplierPreAmplification?(): void;
     /**
+     * 忽略施法角度（例：喷气背包）
+     *
      * @abstract
      * @both
      */
     GetModifierIgnoreCastAngle?(): 0 | 1;
     /**
+     * 忽略冷却（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierIgnoreCooldown?(): 0 | 1;
     /**
+     * 突破标准移速上限（例：焦渴）
+     *
      * @abstract
      * @both
      */
     GetModifierIgnoreMovespeedLimit?(): 0 | 1;
     /**
+     * 忽略物理护甲（例：一剑穿心）
+     *
      * @abstract
      * @both
      */
     GetModifierIgnorePhysicalArmor?(event: ModifierAttackEvent): number;
     /**
+     * 幻象标签（例：幻象默认）
+     *
      * @abstract
      * @both
      */
     GetModifierIllusionLabel?(): 0 | 1;
     /**
+     * 承受方通用伤害调整（例：激怒）
+     *
      * @abstract
      * @both
      */
     GetModifierIncomingDamage_Percentage?(event: ModifierAttackEvent): number;
     /**
-     * This property controls 'universal' shield, if defined both on client and server. Return value on client should be current shield health, as a positive integer, on server - amount of damage blocked.
+     * 全类型伤害护盾（例：无光之盾）
      *
      * @abstract
      * @both
      */
     GetModifierIncomingDamageConstant?(event: ModifierAttackEvent): number;
     /**
+     * 承受方特殊物理伤害调整（例：石化凝视）
+     *
      * @abstract
      * @both
      */
     GetModifierIncomingPhysicalDamage_Percentage?(event: ModifierAttackEvent): number;
     /**
-     * This property controls 'physical' shield, if defined both on client and server. Return value on client should be current shield health, as a positive integer, on server - amount of damage blocked.
+     * 物理伤害护盾（例：共鸣脉冲）
      *
      * @abstract
      * @both
      */
     GetModifierIncomingPhysicalDamageConstant?(event: ModifierAttackEvent): number;
     /**
-     * This property controls 'spell' shield, if defined both on client and server. Return value on client should be current shield health, as a positive integer, on server - amount of damage blocked.
+     * 魔法伤害护盾（例：烈火罩）
      *
      * @abstract
      * @both
      */
     GetModifierIncomingSpellDamageConstant?(event: ModifierAttackEvent): number;
     /**
+     * 近战物理伤害格挡概率覆盖（例：刚毅）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierInnateDamageBlockPctOverride?(): void;
     /**
+     * 智力无效化（例：傻福）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierIntellectNone?(): void;
     /**
+     * 物品栏限制（例：熊亦求精）
+     *
      * @abstract
      * @both
      */
     GetModifierInventorySlotRestricted?(): void;
     /**
+     * 攻击不打破隐身（例：暗影之舞）
+     *
      * @abstract
      * @both
      */
     GetModifierInvisibilityAttackBehaviorException?(): void;
     /**
+     * 隐身透明度（例：暗影步）
+     *
      * @abstract
      * @both
      */
     GetModifierInvisibilityLevel?(): number;
     /**
+     * 中立物品栏可使用普通物品（例：囤积狂鼠）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierIsPackRat?(): void;
     /**
+     * 百分比出售价格增加（例：恶魔的交易）
+     *
      * @abstract
      * @both
      */
     GetModifierItemSellbackCost?(): void;
     /**
+     * 额外百分比终结连杀金钱（例：职业猎人）
+     *
      * @abstract
      * @both
      */
     GetModifierKillStreakBonusGoldPercentage?(): void;
     /**
+     * 击退抗性（例：坚固核心）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierKnockbackAmplification_Percentage?(): void;
     /**
+     * 攻击吸血调整（例：散华）
+     *
      * @abstract
      * @both
      */
     GetModifierLifestealRegenAmplify_Percentage?(): void;
     /**
+     * 魔法伤害格挡（例：凝魂之露）
+     *
      * @abstract
      * @both
      */
     GetModifierMagical_ConstantBlock?(event: ModifierAttackEvent): number;
     /**
+     * 基础魔法抗性降低（例：自然秩序）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierMagicalResistanceBaseReduction?(): void;
     /**
+     * 额外魔法抗性（例：法术反制）
+     *
      * @abstract
      * @both
      */
     GetModifierMagicalResistanceBonus?(event: ModifierAttackEvent): number;
     /**
+     * 幻象魔法抗性（例：暗绘）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierMagicalResistanceBonusIllusions?(): void;
     /**
+     * 特殊魔法抗性（例：永世法衣）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierMagicalResistanceBonusUnique?(): void;
     /**
+     * 虚无魔法抗性（例：衰老）
+     *
      * @abstract
      * @both
      */
     GetModifierMagicalResistanceDecrepifyUnique?(event: ModifierAttackEvent): number;
     /**
+     * 线性魔法抗性（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierMagicalResistanceDirectModification?(event: ModifierAttackEvent): number;
     /**
+     * 定值最大魔法值（例：能量之球）
+     *
      * @abstract
      * @both
      */
     GetModifierManaBonus?(): number;
     /**
+     * 定值魔法消耗降低（例：神圣劝化）
+     *
      * @abstract
      * @both
      */
     GetModifierManacostReduction_Constant?(event: ModifierAbilityEvent): number;
     /**
+     * 魔法消耗增强（例：分则能成）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierManaDrainAmplify_Percentage?(): void;
     /**
+     * 绝对攻击距离设定（例：变身）
+     *
      * @abstract
      * @both
      */
     GetModifierMaxAttackRange?(): number;
     /**
+     * 最低护甲设定（例：刚强巨盾）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierMinPhysicalArmor?(): void;
     /**
+     * 致盲（例：旋风飞斧）
+     *
      * @abstract
      * @both
      */
     GetModifierMiss_Percentage?(): number;
     /**
+     * 目标闪避（例：老版烟幕）
+     *
      * @abstract
      * @both
      */
     GetModifierMiss_Percentage_Target?(): void;
     /**
+     * 模型替换（例：真熊形态）
+     *
      * @abstract
      * @both
      */
     GetModifierModelChange?(): string;
     /**
+     * 定值模型体积（例：腐朽）
+     *
      * @abstract
      * @both
      */
     GetModifierModelScale?(): number;
     /**
+     * 模型体积动画时间（例：逃生技）
+     *
      * @abstract
      * @both
      */
     GetModifierModelScaleAnimateTime?(): void;
     /**
+     * 模型体积覆盖（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierModelScaleConstant?(): void;
     /**
+     * 模型体积缓入缓出动画（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierModelScaleUseInOutEase?(): void;
     /**
+     * 移速设定（例：时间结界）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeed_Absolute?(): number;
     /**
+     * 绝对移速上限设定（例：重如铁锚）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeed_AbsoluteMax?(): void;
     /**
+     * 绝对移速下限设定（例：奔腾）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeed_AbsoluteMin?(): number;
     /**
+     * 绝对移速上限（例：蜥蜴绝吻）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeed_Limit?(): number;
     /**
+     * 标准移速上限设定（例：举步生风）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeed_MaxOverride?(): void;
     /**
+     * 标准移速下限设定（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeed_MinOverride?(): void;
     /**
+     * 定值额外移速（例：血肉傀儡）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedBonus_Constant?(): number;
     /**
+     * 唯一特殊定值额外移速（例：幽冥长袍）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedBonus_Constant_Unique?(): void;
     /**
+     * 唯一特殊定值额外移速2（例：风灵之纹）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedBonus_Constant_Unique_2?(): number;
     /**
+     * 百分比额外移速（例：黄泉颤抖）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedBonus_Percentage?(): number;
     /**
+     * 特殊百分比额外移速（例：夜叉）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedBonus_Percentage_Unique?(): number;
     /**
+     * 特殊定值额外移速（例：速度之靴）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedBonus_Special_Boots?(): number;
     /**
+     * 特殊定值额外移速2（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedBonus_Special_Boots_2?(): number;
     /**
+     * 定值标准移速上限（例：奔流湍急）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedMax_BonusConstant?(): void;
     /**
+     * 基础移速覆盖（例：妖术）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedOverride?(): number;
     /**
+     * 后移速调整定值移速（例：奔流湍急）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedPostMultiplierBonus_Constant?(): void;
     /**
+     * 百分比减移速调整（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierMoveSpeedReductionPercentage?(): void;
     /**
+     * 魔法恢复调整（例：幽魂护罩）
+     *
      * @abstract
      * @both
      */
     GetModifierMPRegenAmplify_Percentage?(): number;
     /**
+     * 特殊魔法恢复调整（例：慧光）
+     *
      * @abstract
      * @both
      */
     GetModifierMPRegenAmplify_Percentage_Unique?(): void;
     /**
-     * Total amplify value is clamped to 0.
+     * 魔法获取调整（例：幽魂护罩）
      *
      * @abstract
      * @both
      */
     GetModifierMPRestoreAmplify_Percentage?(): number;
     /**
+     * 负值闪避（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierNegativeEvasion_Constant?(): number;
     /**
+     * 选择中立附魔时（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierNeutralEnhancementOptions?(): void;
     /**
+     * 提前打造中立物品（例：基本法则锻造）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierNeutralTrinketOptions?(): void;
     /**
+     * 死亡无回城卷轴（例：先天基恩载具）
+     *
      * @abstract
      * @both
      */
     GetModifierNoFreeTPScrollOnDeath?(): void;
     /**
+     * 不使攻击目标暴露（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierNoVisionOfAttacker?(): void;
     /**
+     * 覆盖技能数值（例：太多了）
+     *
      * @abstract
      * @both
      */
     GetModifierOverrideAbilitySpecial?(event: ModifierOverrideAbilitySpecialEvent): 0 | 1;
     /**
+     * 特殊覆盖技能数值（例：太多了）
+     *
      * @abstract
      * @both
      */
     GetModifierOverrideAbilitySpecialValue?(event: ModifierOverrideAbilitySpecialEvent): number;
     /**
+     * 总攻击设定（例：虚张声势）
+     *
      * @abstract
      * @both
      */
     GetModifierOverrideAttackDamage?(): number;
     /**
+     * 基础攻击力覆盖（例：加重骰子）
+     *
      * @abstract
      * @both
      */
     GetModifierOverrideBaseDamage?(): void;
     /**
+     * 小兵击杀金钱覆盖（例：加重骰子）
+     *
      * @abstract
      * @both
      */
     GetModifierOverrideCreepBounty?(): void;
     /**
+     * 无法被取对象（例：热血竞技场）
+     *
      * @abstract
      * @both
      */
     GetModifierOverrideUntargetableFrom?(): void;
     /**
+     * 无法指定对象（例：热血竞技场）
+     *
      * @abstract
      * @both
      */
     GetModifierOverrideUntargetableTo?(): void;
     /**
+     * 百分比攻击动作（例：海象神拳！）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPercentageAttackAnimTime?(): number;
     /**
+     * 百分比施法动作降低（例：逆转时空）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageCasttime?(event: ModifierAbilityEvent): number;
     /**
+     * 百分比经验金钱转化（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPercentageConvertExpToGold?(): void;
     /**
+     * 百分比冷却缩减（例：玲珑心）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageCooldown?(event: ModifierAbilityEvent): number;
     /**
+     * 冷却速度调整（例：时间膨胀）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPercentageCooldownOngoing?(event: ModifierAbilityEvent): number;
     /**
+     * 特殊百分比冷却缩减（例：突变模式冷却调整）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageCooldownStacking?(event: ModifierAbilityEvent): number;
     /**
+     * 百分比死亡损失金钱（例：海盗帽）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageDeathGoldCost?(): void;
     /**
+     * 经验倍率调整（例：从众心理）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageExpRateBoost?(): number;
     /**
+     * 金钱倍率调整（例：占卜师牌组）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageGoldRateBoost?(): void;
     /**
+     * 特殊百分比生命消耗降低（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageHealthcost?(event: ModifierAbilityEvent): number;
     /**
+     * 百分比生命消耗降低（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageHealthcostStacking?(event: ModifierAbilityEvent): number;
     /**
+     * 击杀助攻金钱提升（例：职业猎人）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageKillAssistGoldBoost?(): void;
     /**
+     * 特殊百分比魔法消耗降低（例：散慧对剑）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageManacost?(event: ModifierAbilityEvent): number;
     /**
+     * 百分比魔法消耗降低（例：奥术符）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageManacostStacking?(): number;
     /**
+     * 百分比复活时间降低（例：吸血灵魂）
+     *
      * @abstract
      * @both
      */
     GetModifierPercentageRespawnTime?(): number;
     /**
+     * 永久隐身（例：刀光谍影）
+     *
      * @abstract
      * @both
      */
     GetModifierPersistentInvisibility?(): number;
     /**
+     * 物理伤害格挡（例：海妖外壳）
+     *
      * @abstract
      * @both
      */
     GetModifierPhysical_ConstantBlock?(event: ModifierAttackEvent): number;
     /**
+     * 额外物理伤害格挡（例：利维坦的渔获）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPhysical_ConstantBlockBonus?(): void;
     /**
+     * 特殊物理伤害格挡（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierPhysical_ConstantBlockSpecial?(): number;
     /**
+     * 前端伤害格挡（例：魔法盾）
+     *
      * @abstract
      * @both
      */
     GetModifierPhysical_ConstantBlockUnavoidablePreArmor?(event: ModifierAttackEvent): number;
     /**
-     * Values above 100% are ignored.
+     * 百分比基础护甲（例：自然秩序）
      *
      * @abstract
      * @both
      */
     GetModifierPhysicalArmorBase_Percentage?(): number;
     /**
+     * 定值额外护甲（例：战吼）
+     *
      * @abstract
      * @both
      */
     GetModifierPhysicalArmorBonus?(event: ModifierAttackEvent): number;
     /**
+     * 后结算定值护甲（例：灵魂链接）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPhysicalArmorBonusPost?(): void;
     /**
+     * 特殊定值额外护甲（例：天鹰之戒）
+     *
      * @abstract
      * @both
      */
     GetModifierPhysicalArmorBonusUnique?(event: ModifierAttackEvent): number;
     /**
+     * 特殊主动定值额外护甲（例：玄冥盾牌）
+     *
      * @abstract
      * @both
      */
     GetModifierPhysicalArmorBonusUniqueActive?(event: ModifierAttackEvent): number;
     /**
+     * 百分比总护甲调整（例：变态上颚）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPhysicalArmorTotal_Percentage?(): void;
     /**
+     * 施加方百分比物理伤害（例：怨灵之契）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPhysicalDamageOutgoing_Percentage?(): void;
     /**
+     * 攻击前监听记录攻击行为（例：射手天赋）
+     *
      * @abstract
      * @both
      */
     GetModifierPreAttack?(event: ModifierAttackEvent): number;
     /**
+     * 定值额外攻击力/目标额外攻击力（例：支配死灵/盛宴）
+     *
      * @abstract
      * @both
      */
     GetModifierPreAttack_BonusDamage?(): number;
     /**
+     * 触发额外攻击力（例：射手天赋）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPreAttack_BonusDamage_Proc?(): number;
     /**
+     * 目标触发额外攻击力（例：摔跤行家）
+     *
      * @abstract
      * @both
      */
     GetModifierPreAttack_BonusDamage_Target?(): void;
     /**
+     * 后致命一击伤害（例：影刃）
+     *
      * @abstract
      * @both
      */
     GetModifierPreAttack_BonusDamagePostCrit?(event: ModifierAttackEvent): number;
     /**
+     * 致命一击（例：混沌一击）
+     *
      * @abstract
      * @both
      */
     GetModifierPreAttack_CriticalStrike?(event: ModifierAttackEvent): number;
     /**
+     * 致死打击（例：重型箭袋）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPreAttack_DeadlyBlow?(): void;
     /**
+     * 目标致命一击（例：翔影之钗）
+     *
      * @abstract
      * @both
      */
     GetModifierPreAttack_Target_CriticalStrike?(): number;
     /**
+     * 前结算伤害调整（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPrereduceIncomingDamage_Mult?(): void;
     /**
+     * 中立附魔累加（例：斯布恩的藏品）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPreserveNeutralItemPassives?(): void;
     /**
+     * 魔法攻击特效（例：金箍棒）
+     *
      * @abstract
      * @both
      */
     GetModifierProcAttack_BonusDamage_Magical?(event: ModifierAttackEvent): number;
     /**
+     * 目标魔法攻击特效（例：丝质重器）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierProcAttack_BonusDamage_Magical_Target?(): void;
     /**
+     * 物理攻击特效（例：怒意狂击）
+     *
      * @abstract
      * @both
      */
     GetModifierProcAttack_BonusDamage_Physical?(event: ModifierAttackEvent): number;
     /**
+     * 纯粹攻击特效（例：魔晶血怒）
+     *
      * @abstract
      * @both
      */
     GetModifierProcAttack_BonusDamage_Pure?(event: ModifierAttackEvent): number;
     /**
+     * 物理魔法转化攻击特效（例：超自然）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierProcAttack_ConvertPhysicalToMagical?(): void;
     /**
+     * 魔法反馈攻击特效（例：法力损毁）
+     *
      * @abstract
      * @both
      */
     GetModifierProcAttack_Feedback?(event: ModifierAttackEvent): number;
     /**
+     * 弹道特效替换（例：魔化）
+     *
      * @abstract
      * @both
      */
     GetModifierProjectileName?(): string;
     /**
+     * 区域百分比弹道速度（例：逆转时空）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierProjectileSpeed?(): number;
     /**
+     * 定值弹道速度（例：严寒烧灼）
+     *
      * @abstract
      * @both
      */
     GetModifierProjectileSpeedBonus?(): number;
     /**
+     * 百分比弹道速度（例：银闪护符）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierProjectileSpeedBonusPercentage?(): number;
     /**
+     * 区域百分比目标弹道速度（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierProjectileSpeedTarget?(): void;
     /**
+     * 技能吸血（例：血精石）
+     *
      * @abstract
      * @both
      */
     GetModifierProperty_MagicalLifesteal?(): void;
     /**
+     * 攻击吸血（例：撒旦之邪力）
+     *
      * @abstract
      * @both
      */
     GetModifierProperty_PhysicalLifesteal?(): void;
     /**
+     * 消耗品加速（例：源泉）
+     *
      * @abstract
      * @both
      */
     GetModifierPropertyConsumableUseSpeed?(): void;
     /**
+     * 禁止产生幻象（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierPropertyForbidIllusions?(): void;
     /**
+     * 特殊施加方治疗调整（例：慧光）
+     *
      * @abstract
      * @both
      */
     GetModifierPropertyHealingAmplificationUnique?(): void;
     /**
+     * 魔法消耗覆盖（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierPropertyManacostOverride?(): void;
     /**
+     * 获取生命转移（例：克莱拉牧杖）
+     *
      * @abstract
      * @both
      */
@@ -5374,240 +6308,330 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      */
     GetModifierPropertyRestorationAmplification?(): number;
     /**
+     * 特殊生命回复调整（例：散华）
+     *
      * @abstract
      * @both
      */
     GetModifierPropertyRestorationAmplificationUnique?(): void;
     /**
+     * 忽略无效攻击移动指令（例：决斗）
+     *
      * @abstract
      * @both
      */
     GetModifierPropertySuppressInvalidMoveAttackOrders?(): void;
     /**
+     * 中立物品升级（例：休眠珍品）
+     *
      * @abstract
      * @both
      */
     GetModifierPropertyUpgradeNeutralArtifacts?(): void;
     /**
+     * 致使攻击失败（例：林渊旅人）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierPropetyFailAttack?(): void;
     /**
+     * 模型视野（例：风雷之击）
+     *
      * @abstract
      * @both
      */
     GetModifierProvidesFOWVision?(): 0 | 1;
     /**
+     * 扫描冷却降低（例：望远镜）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierRadarCooldownReduction?(): number;
     /**
-     * Applies scepter when this property is active
+     * 神杖升级（例：神杖）
      *
      * @abstract
      * @both
      */
     GetModifierScepter?(): 0 | 1;
     /**
-     * Applies shard when this property is active
+     * 魔晶升级（例：魔晶）
      *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierShard?(): 0 | 1;
     /**
+     * 智慧神龛共享（例：古龙学者）
+     *
      * @abstract
      * @both
      */
     GetModifierShareXPRune?(): void;
     /**
+     * 减速抗性（例：神之力量）
+     *
      * @abstract
      * @both
      */
     GetModifierSlowResistance_Stacking?(): void;
     /**
+     * 特殊减速抗性（例：散华）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GEtModifierSlowResistance_Unique?(): void;
     /**
+     * 减速抗性影响攻速（例：不可逾越）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierSlowResistanceAppliesToAttacks?(): void;
     /**
+     * 技能增强（例：血怒）
+     *
      * @abstract
      * @both
      */
     GetModifierSpellAmplify_Percentage?(event: ModifierAttackEvent): number;
     /**
+     * 目标技能增强（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierSpellAmplify_PercentageTarget?(): void;
     /**
+     * 特殊技能增强（例：慧光）
+     *
      * @abstract
      * @both
      */
     GetModifierSpellAmplify_PercentageUnique?(): number;
     /**
+     * 技能吸血调整（例：霜冷光环）
+     *
      * @abstract
      * @both
      */
     GetModifierSpellLifestealRegenAmplify_Percentage?(): void;
     /**
+     * 特殊技能吸血调整（例：慧光）
+     *
      * @abstract
      * @both
      */
     GetModifierSpellLifestealRegenAmplify_Percentage_Unique?(): void;
     /**
+     * 技能共享目标（例：位面空洞）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierSpellRedirectTarget?(): void;
     /**
+     * 施放技能消耗生命值（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierSpellsRequireHP?(): number;
     /**
+     * 定值复活时间（例：天赋复活时间）
+     *
      * @abstract
      * @both
      */
     GetModifierStackingRespawnTime?(): number;
     /**
+     * 特殊状态抗性（例：散夜对剑）
+     *
      * @abstract
      * @both
      */
     GetModifierStatusResistance?(): number;
     /**
+     * 负面状态增强（例：技能窃取）
+     *
      * @abstract
      * @both
      */
     GetModifierStatusResistanceCaster?(event: ModifierUnitEvent): number;
     /**
+     * 状态抗性（例：威吓）
+     *
      * @abstract
      * @both
      */
     GetModifierStatusResistanceStacking?(): number;
     /**
+     * 强幻象标签（例：复仇光环）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierStrongIllusion?(): void;
     /**
+     * 可施法幻象标签（例：复仇光环）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierSuperIllusion?(): 0 | 1;
     /**
+     * 可触发物品幻象（例：复仇光环）
+     *
      * @abstract
      * @both
      */
     GetModifierSuperIllusionWithItems?(): void;
     /**
+     * 终极技能可施法幻象标签（例：复仇光环）
+     *
      * @abstract
      * @both
      */
     GetModifierSuperIllusionWithUltimate?(): 0 | 1;
     /**
+     * 跳过死亡特效（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierSuppressFullscreenDeathFX?(): void;
     /**
+     * 风暴双雄克隆体标签（例：风暴双雄）
+     *
      * @abstract
      * @both
      */
     GetModifierTempestDouble?(): 0 | 1;
     /**
+     * 被动金钱倍率（例：贤者石）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierTickGold_Multiplier?(): void;
     /**
+     * 末端伤害格挡（例：肉盾）
+     *
      * @abstract
      * @both
      */
     GetModifierTotal_ConstantBlock?(event: ModifierAttackEvent): number;
     /**
+     * 叠加末端伤害格挡（例：幽灵船）
+     *
      * @abstract
      * @both
      */
     GetModifierTotal_ConstantBlockStacking?(): void;
     /**
+     * 施加方通用伤害调整（例：决斗达人）
+     *
      * @abstract
      * @both
      */
     GetModifierTotalDamageOutgoing_Percentage?(event: ModifierAttackEvent): number;
     /**
+     * 百分比最大魔法恢复（例：泉水回春）
+     *
      * @abstract
      * @both
      */
     GetModifierTotalPercentageManaRegen?(): number;
     /**
+     * 转身速率覆盖（例：相位鞋）
+     *
      * @abstract
      * @both
      */
     GetModifierTurnRate_Override?(): number;
     /**
+     * 百分比转身速率（例：粘性燃油）
+     *
      * @abstract
      * @both
      */
     GetModifierTurnRate_Percentage?(): number;
     /**
+     * 定值转身速率（例：织网）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierTurnRateConstant?(): number;
     /**
+     * 禁止升级技能（例：变形）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierUnitDisllowUpgrading?(): 0 | 1;
     /**
+     * 即时刷新统计情况（例：奥术符）
+     *
      * @abstract
      * @both
      */
     GetModifierUnitStatsNeedsRefresh?(): 0 | 1;
     /**
+     * 死亡可获得经验（例：复仇光环）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetModifierXPDuringDeath?(): void;
     /**
+     * 智慧神龛冷却时间覆盖（未知）
+     *
      * @abstract
      * @both
      */
     GetModifierXPFountainCountdownTimeOverride?(): void;
     /**
+     * 伪随机概率调整（例：天佑勇者）
+     *
      * @abstract
      * @both
      */
     GetModofierPropertyPseudoRandomBonus?(): void;
     /**
+     * 完整动画覆盖（例：太多了）
+     *
      * @abstract
      * @both
      */
     GetOverrideAnimation?(): GameActivity_t;
     /**
+     * 动画速率调整（例：太多了）
+     *
      * @abstract
      * @both
      */
     GetOverrideAnimationRate?(): number;
     /**
+     * 无视攻击免疫（例：超自然）
+     *
      * @abstract
      * @both
      */
     GetOverrideAttackMagical?(): 0 | 1;
     /**
+     * 百分比护甲穿透（例：地狱之裂）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetPhysicalArmorPiercingPercentageTarget?(): void;
     /**
+     * 百分比属性攻击力（例：内在优势）
+     *
      * @abstract
      * @both
      */
@@ -5622,471 +6646,656 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * should return 1 then re-cast via ForceCast / SetCursorCastTarget +
      * OnSpellStart. Prefer declaring event as optional (event?) at call sites if
      * needed for assignability against older void stubs.
+     * @both
      */
     GetRedirectSpell?(event: ModifierAbilityEvent): 0 | 1;
     /**
+     * 技能反弹（例：清莲宝珠）
+     *
      * @abstract
      * @both
      */
     GetReflectSpell?(event: ModifierAbilityEvent): 0 | 1;
     /**
+     * 首次学习等级调整（例：曲线学习）
+     *
      * @abstract
      * @both
      */
     GetRequiredLevel?(): void;
     /**
+     * 无视攻击间隔（未知）
+     *
      * @abstract
      * @both
      */
     GetSkipAttackRegulator?(): void;
     /**
+     * 攻击不触发特效（未知）
+     *
      * @abstract
      * @both
      */
     GetSuppressAttackProcs?(): void;
     /**
+     * 不触发攻击分裂（例：神之谴戒）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetSuppressCleave?(event: ModifierAttackEvent): 0 | 1;
     /**
+     * 不触发致命一击（例：老版英灵胸针）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetSuppressCrit?(): void;
     /**
+     * 免受致命一击攻击（未知）
+     *
      * @abstract
      * @both
      */
     GetSuppressIncomingCrit?(): void;
     /**
+     * 跳过传送（未知）
+     *
      * @abstract
      * @both
      */
     GetSuppressTeleport?(): 0 | 1;
     /**
+     * 中立物品复制（例：英熊好礼）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetTierTokenReroll?(): void;
     /**
+     * 仅触发攻击动作特效（例：Ti9战鼓）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     GetTriggerCosmeticAndEndAttack?(): void;
     /**
+     * 倒计时特效（例：普通召唤单位默认）
+     *
      * @abstract
      * @both
      */
     GetUnitLifetimeFraction?(): number;
     /**
+     * 视野角度限制（例：红光满面）
+     *
      * @abstract
      * @both
      */
     GetVisionDegreeRestriction?(): void;
     /**
+     * 设置飞行高度（例：丛林之舞）
+     *
      * @abstract
      * @both
      */
     GetVisualZDelta?(): number;
     /**
+     * 起飞速度覆盖（例：冰川）
+     *
      * @abstract
      * @both
      */
     GetVisualZSpeedBaseOverride?(): void;
     /**
+     * 额外中立物品附魔（例：基本法则锻造）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     HasBonusNeutralItemPassive?(): void;
     /**
+     * 最低属性等级（例：虚空行者）
+     *
      * @abstract
      * @both
      */
     MinAttributeLevel?(): void;
     /**
+     * 后结算伤害护盾（未知）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT_POST?(): void;
     /**
+     * 持续施法结束时（例：遗言）
+     *
      * @abstract
      * @both
      */
     OnAbilityEndChannel?(event: ModifierAbilityEvent): void;
     /**
+     * 施法完成时（例：余震）
+     *
      * @abstract
      * @both
      */
     OnAbilityExecuted?(event: ModifierAbilityEvent): void;
     /**
+     * 完全施放时（例：奥术积累）
+     *
      * @abstract
      * @both
      */
     OnAbilityFullyCast?(event: ModifierAbilityEvent): void;
     /**
+     * 开始施法时（例：不稳定化合物）
+     *
      * @abstract
      * @both
      */
     OnAbilityStart?(event: ModifierAbilityEvent): void;
     /**
+     * 交换技能时（例：两栖狂想曲）
+     *
      * @abstract
      * @both
      */
     OnAbilitySwapped?(event: ModifierAbilityEvent): void;
     /**
+     * 切换开关技能时（例：熊亦求精）
+     *
      * @abstract
      * @both
      */
     OnAbilityToggled?(event: ModifierAbilityEvent): void;
     /**
+     * 助攻时（例：利维坦的渔获）
+     *
      * @abstract
      * @both
      */
     OnAssist?(event: ModifierUnitEvent): void;
     /**
+     * 攻击发出时（例：暗影之境）
+     *
      * @abstract
      * @both
      */
     OnAttack?(event: ModifierAttackEvent): void;
     /**
-     * Happens even if attack can't be issued.
+     * 攻击友方时（例：噩梦）
      *
      * @abstract
      * @both
      */
     OnAttackAllied?(event: ModifierAttackEvent): void;
     /**
+     * 攻击取消时（例：神枪在手）
+     *
      * @abstract
      * @both
      */
     OnAttackCancelled?(event: ModifierAttackEvent): void;
     /**
+     * 攻击结束时（例：并列）
+     *
      * @abstract
      * @both
      */
     OnAttacked?(event: ModifierAttackEvent): void;
     /**
+     * 攻击失败时（例：液态火）
+     *
      * @abstract
      * @both
      */
     OnAttackFail?(event: ModifierAttackEvent): void;
     /**
+     * 攻击完成时（例：强化图腾）
+     *
      * @abstract
      * @both
      */
     OnAttackFinished?(event: ModifierAttackEvent): void;
     /**
+     * 攻击命中时（例：腐蚀兵械）
+     *
      * @abstract
      * @both
      */
     OnAttackLanded?(event: ModifierAttackEvent): void;
     /**
+     * 记录攻击时（例：神枪在手）
+     *
      * @abstract
      * @both
      */
     OnAttackRecord?(event: ModifierAttackEvent): void;
     /**
+     * 攻击记录销毁时（例：奥术天球）
+     *
      * @abstract
      * @both
      */
     OnAttackRecordDestroy?(event: ModifierAttackEvent): void;
     /**
+     * 开始攻击抬手时（例：不可侵犯）
+     *
      * @abstract
      * @both
      */
     OnAttackStart?(event: ModifierAttackEvent): void;
     /**
+     * 尝试躲避弹道时（例：猎手旋镖）
+     *
      * @abstract
      * @both
      */
     OnAttemptProjectileDodge?(): void;
     /**
+     * 打破隐身时（例：影刃）
+     *
      * @abstract
      * @both
      */
     OnBreakInvisibility?(): void;
     /**
+     * 摧毁建筑时（例：毁灭之赏）
+     *
      * @abstract
      * @both
      */
     OnBuildingKilled?(event: ModifierInstanceEvent): void;
     /**
+     * 攻击分裂命中时（例：死亡之拳）
+     *
      * @abstract
      * @both
      */
     OnCleaveAttackLanded?(): void;
     /**
+     * 造成伤害时（例：幽魂之剑）
+     *
      * @abstract
      * @both
      */
     OnDamageCalculated?(event: ModifierAttackEvent): void;
     /**
+     * 生命移除时（例：回响之笼）
+     *
      * @abstract
      * @both
      */
     OnDamageHPLoss?(event: ModifierAttackEvent): void;
     /**
+     * 阻止死亡时（例：禽戏）
+     *
      * @abstract
      * @both
      */
     OnDamagePrevented?(event: ModifierAttackEvent): void;
     /**
+     * 进入白天时（例：辰星破晓）
+     *
      * @abstract
      * @both
      */
     OnDayStarted?(): void;
     /**
+     * 单位死亡时（例：衰退光环）
+     *
      * @abstract
      * @both
      */
     OnDeath?(event: ModifierInstanceEvent): void;
     /**
+     * 完全死亡时（例：临别一枪）
+     *
      * @abstract
      * @both
      */
     OnDeathCompleted?(event: ModifierInstanceEvent): void;
     /**
+     * 被支配时（例：感染）
+     *
      * @abstract
      * @both
      */
     OnDominated?(event: ModifierUnitEvent): void;
     /**
+     * 强制触发魔棒时（例：幽冥守卫）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnForceProcMagicStick?(): void;
     /**
+     * 视野所属阵营改变时（例：真实视域）
+     *
      * @abstract
      * @both
      */
     OnFoWTeamChanged?(): void;
     /**
+     * 获得治疗时（例：羁绊）
+     *
      * @abstract
      * @both
      */
     OnHealReceived?(event: ModifierHealEvent): void;
     /**
+     * 获取生命时（例：虚无之恩）
+     *
      * @abstract
      * @both
      */
     OnHealthGained?(event: ModifierHealEvent): void;
     /**
+     * 开始死亡时（例：驱邪护符）
+     *
      * @abstract
      * @both
      */
     OnHeroBeginDying?(event: ModifierAttackEvent): void;
     /**
+     * 击杀英雄时（例：血色外衣）
+     *
      * @abstract
      * @both
      */
     OnHeroKilled?(event: ModifierAttackEvent): void;
     /**
+     * 幻象生成时（例：混沌之军）
+     *
      * @abstract
      * @both
      */
     OnIllusionCreated?(event: ModifierUnitEvent): void;
     /**
+     * 击杀时（例：雷神之锤）
+     *
      * @abstract
      * @both
      */
     OnKill?(event: ModifierUnitEvent): void;
     /**
+     * 造成技能伤害时（例：束手束脚）
+     *
      * @abstract
      * @both
      */
     OnMagicDamageCalculated?(event: ModifierAttackEvent): void;
     /**
+     * 获取魔法时（例：羁绊）
+     *
      * @abstract
      * @both
      */
     OnManaGained?(event: ModifierUnitEvent): void;
     /**
+     * 模型替换时（例：古龙形态）
+     *
      * @abstract
      * @both
      */
     OnModelChanged?(event: ModifierUnitEvent): void;
     /**
+     * 施加modifier时（例：咤）
+     *
      * @abstract
      * @both
      */
     OnModifierAdded?(event: ModifierAddedEvent): void;
     /**
+     * 刷新modifier时（例：安可）
+     *
      * @abstract
      * @both
      */
     OnModifierRefreshed?(event: ModifierAddedEvent): void;
     /**
+     * 移除modifier时（例：神杖高射火炮）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnModifierRemoved?(event: ModifierAddedEvent): void;
     /**
+     * 锁闭伤害技能时（例：闪烁匕首）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnMuteDamageAbilities?(): void;
     /**
+     * 进入夜晚时（例：固有增益）
+     *
      * @abstract
      * @both
      */
     OnNightStarted?(): void;
     /**
+     * 下达指令时（例：相位转移）
+     *
      * @abstract
      * @both
      */
     OnOrder?(event: ModifierUnitEvent): void;
     /**
+     * 收到指令时（例：能量齿轮）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnOrderReceived?(): void;
     /**
+     * 产生攻击分裂时（例：巨力挥舞）
+     *
      * @abstract
      * @both
      */
     OnProcessCleave?(): void;
     /**
+     * 弹道被躲避时（例：顽皮克敌）
+     *
      * @abstract
      * @both
      */
     OnProjectileDodge?(event: ModifierAttackEvent): void;
     /**
+     * 弹道被摧毁时（例：热血竞技场）
+     *
      * @abstract
      * @both
      */
     OnProjectileObstructionHit?(): void;
     /**
+     * 造成纯粹伤害时（例：束手束脚）
+     *
      * @abstract
      * @both
      */
     OnPureDamageCalculated?(): void;
     /**
+     * 驱散时（例：恶性瘟疫）
+     *
      * @abstract
      * @both
      */
     OnPurged?(event: ModifierUnitEvent): void;
     /**
+     * 获取生命转移时（例：克莱拉牧杖）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnRedirectHealthGain?(): void;
     /**
+     * 单位复活时（例：下地狱再上来）
+     *
      * @abstract
      * @both
      */
     OnRespawn?(event: ModifierUnitEvent): void;
     /**
+     * 神符产生时（例：磁场）
+     *
      * @abstract
      * @both
      */
     OnRuneSpawn?(event: ModifierUnitEvent): void;
     /**
+     * 选择神杖升级时（例：元素祈唤）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnScepterUpgradeSelected?(): void;
     /**
+     * 设定单位位置时（例：扔出）
+     *
      * @abstract
      * @both
      */
     OnSetLocation?(event: ModifierUnitEvent): void;
     /**
+     * 选择魔晶升级时（例：元素祈唤）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnShardUpgradeSelected?(): void;
     /**
+     * 施法成功时（例：绝刃）
+     *
      * @abstract
      * @both
      */
     OnSpellAppliedSuccessfully?(event: ModifierAbilityEvent): void;
     /**
+     * 选定施法目标时（例：老版灵匣）
+     *
      * @abstract
      * @both
      */
     OnSpellTargetReady?(): void;
     /**
+     * 消耗生命时（例：回响之笼）
+     *
      * @abstract
      * @both
      */
     OnSpentHealth?(event: ModifierAbilityEvent): void;
     /**
+     * 消耗物品充能时（例：分则能成）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnSpentItemCharge?(): void;
     /**
+     * 消耗魔法时（例：幽冥守卫）
+     *
      * @abstract
      * @both
      */
     OnSpentMana?(event: ModifierAbilityEvent): void;
     /**
+     * 状态改变时（例：幽魂护罩）
+     *
      * @abstract
      * @both
      */
     OnStateChanged?(event: ModifierUnitEvent): void;
     /**
+     * 受到伤害时（例：腐蚀皮肤）
+     *
      * @abstract
      * @both
      */
     OnTakeDamage?(event: ModifierInstanceEvent): void;
     /**
+     * 产生击杀归属时（例：死神镰刀）
+     *
      * @abstract
      * @both
      */
     OnTakeDamageKillCredit?(event: ModifierAttackEvent): void;
     /**
+     * 在首端伤害格挡前时（例：永世法衣）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnTakeDamagePostUnavoidableBlock?(): void;
     /**
+     * 传送结束时（例：降临）
+     *
      * @abstract
      * @both
      */
     OnTeleported?(event: ModifierUnitEvent): void;
     /**
+     * 正在传送时（例：剑刃风暴）
+     *
      * @abstract
      * @both
      */
     OnTeleporting?(event: ModifierUnitEvent): void;
     /**
+     * 同步中立物品时（例：英熊好礼）
+     *
      * @abstract
-     * @both
+     * @lua不可用
      */
     OnTierTokenRerolled?(): void;
     /**
+     * 技能数值说明（例：太多了）
+     *
      * @abstract
      * @both
      */
     OnTooltip?(): number;
     /**
+     * 状态栏即时更新说明（例：太多了）
+     *
      * @abstract
      * @both
      */
     OnTooltip2?(): number;
     /**
+     * 摧毁树木时（例：暴露疗法）
+     *
      * @abstract
      * @both
      */
     OnTreeCutDown?(event: ModifierUnitEvent): void;
     /**
+     * 单位移动时（例：隐匿）
+     *
      * @abstract
      * @both
      */
     OnUnitMoved?(event: ModifierUnitEvent): void;
     /**
+     * 模型替换时粒子特效（例：暗夜猎影）
+     *
      * @abstract
      * @both
      */
     PreserveParticlesOnModelChanged?(): 0 | 1;
     /**
+     * 关闭重生特效（未知）
+     *
      * @abstract
      * @both
      */
     ReincarnateSuppressFX?(): void;
     /**
+     * 重生（例：绝冥再生）
+     *
      * @abstract
      * @both
      */
@@ -6250,6 +7459,9 @@ declare interface CDOTA_PlayerResource extends CBaseEntity {
     GetEventPointsForPlayerID(playerId: PlayerID): number;
     GetEventPremiumPoints(playerId: PlayerID): number;
     GetEventRanks(playerId: PlayerID): unknown;
+    /**
+     * 当前金钱
+     */
     GetGold(playerId: PlayerID): number;
     GetGoldLostToDeath(playerId: PlayerID): number;
     GetGoldPerMin(playerId: PlayerID): number;
@@ -6312,6 +7524,9 @@ declare interface CDOTA_PlayerResource extends CBaseEntity {
     GetSteamID(playerId: PlayerID): Uint64;
     GetStreak(playerId: PlayerID): number;
     GetStuns(playerId: PlayerID): number;
+    /**
+     * 所属阵营
+     */
     GetTeam(playerId: PlayerID): DOTATeam_t;
     /**
      * @deprecated Added for compatibility with CBaseEntity. Invalid at the runtime.
@@ -6423,6 +7638,9 @@ declare interface CDOTA_PlayerResource extends CBaseEntity {
      * Set custom team assignment for this player.
      */
     SetCustomTeamAssignment(playerId: PlayerID, teamAssignment: DOTATeam_t): void;
+    /**
+     * 设置金钱
+     */
     SetGold(playerId: PlayerID, gold: number, reliable: boolean): void;
     SetHasRandomed(playerId: PlayerID): void;
     SetLastBuybackTime(playerId: PlayerID, lastBuybackTime: number): void;
@@ -6549,9 +7767,21 @@ declare interface CDOTABaseAbility extends CBaseEntity {
      */
     EndCooldown(): void;
     ForceSetFrozenCooldown(value: number): void;
+    /**
+     * 充能时间
+     */
     GetAbilityChargeRestoreTime(level: number): number;
+    /**
+     * 伤害
+     */
     GetAbilityDamage(): number;
+    /**
+     * 伤害类型
+     */
     GetAbilityDamageType(): DAMAGE_TYPES;
+    /**
+     * 技能槽位
+     */
     GetAbilityIndex(): number;
     /**
      * Gets the key values definition for this ability.
@@ -6566,15 +7796,33 @@ declare interface CDOTABaseAbility extends CBaseEntity {
     GetAbilityTargetFlags(): DOTA_UNIT_TARGET_FLAGS;
     GetAbilityTargetTeam(): DOTA_UNIT_TARGET_TEAM;
     GetAbilityTargetType(): DOTA_UNIT_TARGET_TYPE;
+    /**
+     * 技能类型
+     */
     GetAbilityType(): number;
     /**
-     * Gets the current Alt Cast State.
+     * 多样施法状态
      */
     GetAltCastState(): boolean;
+    /**
+     * 施法动作忽略模型体积
+     */
     GetAnimationIgnoresModelScale(): boolean;
+    /**
+     * 作用范围
+     */
     GetAOERadius(): number;
+    /**
+     * 主技能
+     */
     GetAssociatedPrimaryAbilities(): string;
+    /**
+     * 附属技能
+     */
     GetAssociatedSecondaryAbilities(): string;
+    /**
+     * 自动施法状态
+     */
     GetAutoCastState(): boolean;
     GetBackswingTime(): number;
     /**
@@ -6595,7 +7843,11 @@ declare interface CDOTABaseAbility extends CBaseEntity {
      */
     GetCaster(): CDOTA_BaseNPC;
     GetCastPoint(): number;
-    /** @both */
+    /**
+     * 施法动作系数
+     *
+     * @both
+     */
     GetCastPointModifier(): number;
     /**
      * Gets the cast range of the ability.
@@ -6603,9 +7855,18 @@ declare interface CDOTABaseAbility extends CBaseEntity {
     GetCastRange(location: Vector | undefined, target: CDOTA_BaseNPC | undefined): number;
     GetChannelledHealthCostPerSecond(level: number): number;
     GetChannelledManaCostPerSecond(level: number): number;
+    /**
+     * 持续施法开始时间
+     */
     GetChannelStartTime(): number;
+    /**
+     * 持续施法时间
+     */
     GetChannelTime(): number;
     GetCloneSource(): CDOTA_BaseNPC | undefined;
+    /**
+     * 语音类型
+     */
     GetConceptRecipientType(): number;
     /**
      * Get the cooldown duration for this ability at a given level, not the amount of cooldown actually left.
@@ -6614,7 +7875,7 @@ declare interface CDOTABaseAbility extends CBaseEntity {
     GetCooldownTime(): number;
     GetCooldownTimeRemaining(): number;
     /**
-     * The number of charges remaining on this ability.
+     * 当前能量点数
      *
      * @both
      */
@@ -6624,20 +7885,38 @@ declare interface CDOTABaseAbility extends CBaseEntity {
     GetCursorTargetingNothing(): boolean;
     GetDuration(): number;
     /**
-     * Gets the cast range of the ability, taking modifiers into account.
+     * 当前施法距离
      */
     GetEffectiveCastRange(location: Vector, target: object): number;
+    /**
+     * 当前总冷却时间
+     */
     GetEffectiveCooldown(level: number): number;
+    /**
+     * 当前生命消耗
+     */
     GetEffectiveHealthCost(level: number): number;
+    /**
+     * 当前魔法消耗
+     */
     GetEffectiveManaCost(level: number): number;
     GetGoldCost(level: number): number;
     GetGoldCostForUpgrade(level: number): number;
     GetHealthCost(level: number): number;
+    /**
+     * 技能升级所需等级
+     */
     GetHeroLevelRequiredToUpgrade(): number;
+    /**
+     * 初始能量点数
+     */
     GetInitialAbilityCharges(level: number): number;
+    /**
+     * 固有modifier
+     */
     GetIntrinsicModifierName(): string;
     /**
-     * Get the current level of the ability.
+     * 技能等级
      *
      * @both
      */
@@ -6655,11 +7934,26 @@ declare interface CDOTABaseAbility extends CBaseEntity {
      */
     GetLevelSpecialValueNoOverride(name: string, level: number): number;
     GetManaCost(level: number): number;
+    /**
+     * 最大能量点数
+     */
     GetMaxAbilityCharges(level: number): number;
+    /**
+     * 技能最大等级
+     */
     GetMaxLevel(): number;
+    /**
+     * 支援分基础比例
+     */
     GetModifierValue(): number;
+    /**
+     * 支援分额外加成
+     */
     GetModifierValueBonus(): number;
     GetPlaybackRateOverride(): number;
+    /**
+     * 共享冷却归类
+     */
     GetSharedCooldownName(): string;
     /**
      * Gets a value from this ability's special value block for its current level.
@@ -6667,9 +7961,12 @@ declare interface CDOTABaseAbility extends CBaseEntity {
      * @both
      */
     GetSpecialValueFor(name: string): number;
+    /**
+     * 窃取施法动作名
+     */
     GetStolenActivityModifier(): string;
     /**
-     * Whether or not this ability is toggled.
+     * 开关状态
      *
      * @both
      */
@@ -6677,23 +7974,38 @@ declare interface CDOTABaseAbility extends CBaseEntity {
     GetUpgradeRecommended(): boolean;
     HeroXPChange(xp: number): boolean;
     IncrementModifierRefCount(): void;
+    /**
+     * 技能已激活
+     */
     IsActivated(): boolean;
     IsAttributeBonus(): boolean;
     /**
      * Returns whether the ability is currently channeling.
      */
     IsChanneling(): boolean;
+    /**
+     * 冷却就绪
+     */
     IsCooldownReady(): boolean;
     IsCosmetic(entity: CBaseEntity): boolean;
     /**
-     * Returns whether the ability can be cast.
+     * 技能施放就绪
      */
     IsFullyCastable(): boolean;
+    /**
+     * 隐藏技能
+     */
     IsHidden(): boolean;
+    /**
+     * 隐藏附属技能
+     */
     IsHiddenAsSecondaryAbility(): boolean;
+    /**
+     * 被窃取后隐藏
+     */
     IsHiddenWhenStolen(): boolean;
     /**
-     * Returns whether the ability is currently casting.
+     * 施法前摇中
      */
     IsInAbilityPhase(): boolean;
     /**
@@ -6704,13 +8016,37 @@ declare interface CDOTABaseAbility extends CBaseEntity {
     IsItem(): this is CDOTA_Item;
     IsOwnersGoldEnough(issuerPlayerId: PlayerID): boolean;
     IsOwnersGoldEnoughForUpgrade(): boolean;
+    /**
+     * 魔法值就绪
+     */
     IsOwnersManaEnough(): boolean;
+    /**
+     * 被动技能
+     */
     IsPassive(): boolean;
+    /**
+     * 可刷新技能
+     */
     IsRefreshable(): boolean;
+    /**
+     * 可与队友共享
+     */
     IsSharedWithTeammates(): boolean;
+    /**
+     * 可被窃取技能
+     */
     IsStealable(): boolean;
+    /**
+     * 已被窃取技能
+     */
     IsStolen(): boolean;
+    /**
+     * 开关技能
+     */
     IsToggle(): boolean;
+    /**
+     * 技能已学习
+     */
     IsTrained(): boolean;
     /**
      * Mark the ability button for this ability as needing a refresh.
@@ -6733,14 +8069,29 @@ declare interface CDOTABaseAbility extends CBaseEntity {
     PayGoldCostForUpgrade(): void;
     PayHealthCost(): void;
     PayManaCost(): void;
+    /**
+     * 被窃取后施法动作不变
+     */
     PlaysDefaultAnimWhenStolen(): boolean;
+    /**
+     * 是否触发魔棒充能
+     */
     ProcsMagicStick(): boolean;
+    /**
+     * 含有引用参考modifier
+     */
     RefCountsModifiers(): boolean;
     RefreshCharges(): void;
     RefreshIntrinsicModifier(): void;
     RefundHealthCost(): void;
     RefundManaCost(): void;
+    /**
+     * 施法需转身
+     */
     RequiresFacing(): boolean;
+    /**
+     * 死亡重置开关状态
+     */
     ResetToggleOnRespawn(): boolean;
     SetAbilityIndex(index: number): void;
     SetActivated(activated: boolean): void;
@@ -8233,7 +9584,7 @@ declare interface CDOTAPlayerController extends CBaseAnimatingActivity {
     /** @client */
     GetClickBehaviors(): unknown;
     /**
-     * Get the player's official PlayerID; notably is -1 when the player isn't yet on a team.
+     * 玩家ID
      */
     GetPlayerID(): PlayerID;
     /** @client */
@@ -8462,7 +9813,7 @@ declare interface CEntities {
     /**
      * Find entities by class name within a radius.
      */
-    FindAllByClassnameWithin(arg1: string, location: Vector, arg3: number): object;
+    FindAllByClassnameWithin(arg1: string, location: Vector, arg3: number): CBaseEntity[];
     /**
      * Find entities by model name.
      */
@@ -8474,7 +9825,7 @@ declare interface CEntities {
     /**
      * Find entities by name within a radius.
      */
-    FindAllByNameWithin(arg1: string, location: Vector, arg3: number): object;
+    FindAllByNameWithin(arg1: string, location: Vector, arg3: number): CBaseEntity[];
     /**
      * Find entities by targetname.
      */
@@ -8482,7 +9833,7 @@ declare interface CEntities {
     /**
      * Find entities within a radius.
      */
-    FindAllInSphere(location: Vector, arg2: number): object;
+    FindAllInSphere(location: Vector, arg2: number): CBaseEntity[];
     /**
      * Find entities by class name. Pass 'null' to start an iteration, or reference to a previously found entity to continue a search.
      */
@@ -8588,7 +9939,11 @@ declare interface CEntityInstance {
      * @both
      */
     FireOutput(arg1: string, arg2: object, arg3: object, arg4: object, arg5: number): void;
-    /** @both */
+    /**
+     * 类别名称
+     *
+     * @both
+     */
     GetClassname(): string;
     /**
      * Get the entity name w/help if not defined (i.e. classname/etc).
@@ -8611,7 +9966,7 @@ declare interface CEntityInstance {
      */
     GetIntAttr(arg1: string): number;
     /**
-     * Get the entity name.
+     * 实体名称
      *
      * @both
      */
@@ -9707,7 +11062,7 @@ declare function AnglesToVector(arg1: QAngle): Vector;
 declare function AppendToLogFile(arg1: string, arg2: string): void;
 
 /**
- * Damage an npc.
+ * 造成伤害
  */
 declare function ApplyDamage(options: ApplyDamageOptions): number;
 

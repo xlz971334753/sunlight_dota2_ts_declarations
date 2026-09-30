@@ -1,6 +1,6 @@
 {
   "name": "@sunlight_xlz/panorama-types",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "TypeScript definitions for Dota 2 Panorama API",
   "keywords": [
     "dota",

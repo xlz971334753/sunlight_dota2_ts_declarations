@@ -21,7 +21,7 @@
     "lint:prettier": "prettier --check .",
     "lint:modifiers": "eslint --no-ignore scripts/modifier-functions/*.js",
     "prepublishOnly": "npm run build",
-    "publish:types": "ts-node scripts/publish-types.ts",
+    "publish:types": "ts-node --project scripts/tsconfig.json scripts/publish-types.ts",
     "test": "tsc -b test",
     "bump:lua-types": "ts-node scripts/bump-version.ts packages/dota-lua-types",
     "bump:panorama-types": "ts-node scripts/bump-version.ts packages/panorama-types"
