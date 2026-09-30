@@ -15,8 +15,8 @@ normalized 声明；不需要在生成文件中手工修改注释。
   手工说明予以保留。
 - 中文配置仅保存含义和示例，已移除参考文本的 181 个不可用前缀；保留“未知”等机制说明。不要在
   `manual_comments.json` 中维护可用性结论。
-- 中文 `description` 替换该项的上游描述后，生成器再追加检查报告中的绑定结果。参数、返回类型以及
-  `@abstract`、`@server`、`@client` 等标签保持原有生成方式。
+- 中文 `description` 替换该项的上游描述后，生成器再追加方法对应关系和绑定标签。参数、返回类型和
+  `@abstract` 等标签保留原有生成方式；已检查的 modifier 回调范围由检查结果决定。
 
 ## 自动检查 modifier function
 
@@ -63,22 +63,32 @@ npm run build:types
 ```
 
 生成器默认读取 `artifacts/modifier-functions.json`，同时为 modifier 枚举成员和对应
-`CDOTA_Modifier_Lua` 回调追加注释，普通和 normalized 声明使用同一结果。每条注释注明检查端、Steam
-build （如果有）和 DLL SHA-256 前 16 位；完整指纹和分派证据保存在报告中。
+`CDOTA_Modifier_Lua` 回调追加简短标签，普通和 normalized 声明使用同一结果。版本、SHA-256、原因和分派
+证据仅保留在报告中。
 
-- `unbound` 才追加“Lua 不可用：没有常规 Lua 回调绑定”。这限定在检查器识别的 Windows x64 常规绑定路径
-  。
-- `bound` 追加“存在常规 Lua 回调绑定，触发及效果尚未验证”。
-- `unknown` 和 `not_in_binary` 分别说明未识别或未收录，不推断不可用。
-- 服务端、客户端结果分别注明。仅检查一端时不会给另一端下结论；部分分支未识别时，已确认的分支仍保留证
-  据，未识别的条目只追加不确定性说明。
+- 枚举按上游 `Method Name` 添加 `@function 方法名`。这项对应关系不依赖 DLL 报告。
+- 两端均为 `unbound` 时，枚举和回调只添加 `@lua不可用`。
+- 存在 `bound` 时，枚举和回调按已确认的绑定范围添加 `@both`、`@server` 或 `@client`，每项只保留一个
+  范围标签。
+- `unknown`、`not_in_binary` 不推断不可用。只检查一端时，仅标出该端已确认的绑定，不推断另一端结果；
+  也不使用单端无绑定结果添加全局不可用标签。
+- 已检查的回调不再沿用上游范围标签，避免与检查结果重复或冲突。未识别的条目省略可用性标签。
+
+```typescript
+/**
+ * 移除modifier时（例：神杖高射火炮）
+ * @function OnModifierRemoved
+ * @lua不可用
+ */
+MODIFIER_EVENT_ON_MODIFIER_REMOVED = 238,
+```
 
 读取报告时核对格式版本、声明数据包版本、枚举来源文件 SHA-256，以及报告所指 DLL 的当前 SHA-256。 DLL
 更新、声明来源变化、输入 DLL 无法读取或报告格式无效时停止生成，并提示重跑检查，防止沿用过期结论。报
 告格式现为 schema 2，旧报告需要重新生成。
 
-默认报告不存在时，输出提示并继续生成中文说明，不追加绑定注释，因此构建不强制依赖本机 Dota 安装。使用
-离线 DLL 或自定义报告路径时可以显式指定报告，显式指定的文件不存在则报错：
+默认报告不存在时，输出提示并继续生成中文说明及 `@function`，不追加绑定标签，因此构建不强制依赖本机
+Dota 安装。使用离线 DLL 或自定义报告路径时可以显式指定报告，显式指定的文件不存在则报错：
 
 ```powershell
 npm run check:modifiers -- --dll "D:/备份/server.dll" --output "artifacts/backup-modifiers.json"

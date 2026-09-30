@@ -17,7 +17,7 @@ const PROC = 'MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE_PROC';
 const MEMBER = `enum:modifierfunction#member:${PROC}`;
 const CALLBACK = 'CDOTA_Modifier_Lua.GetModifierPreAttack_BonusDamage_Proc';
 
-function createReport(t, fixture = createFixture()) {
+function createReport(t, fixture = createFixture(), sides = ['server', 'client']) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'modifier-comments-'));
   t.after(() => {
     const resolved = fs.realpathSync(directory);
@@ -28,8 +28,11 @@ function createReport(t, fixture = createFixture()) {
   const dll = path.join(directory, 'server.dll');
   fs.writeFileSync(dll, fixture.data);
   const output = path.join(directory, 'report.json');
-  const report = runCheck(parseArguments(['--dll', dll, '--output', output]));
+  const report = runCheck(parseArguments(['--dll', dll, '--side', sides[0], '--output', output]));
+  const original = report.results[0];
+  report.results = sides.map((side) => ({ ...JSON.parse(JSON.stringify(original)), side }));
   const write = () => fs.writeFileSync(output, JSON.stringify(report));
+  write();
   return { directory, dll, output, report, write };
 }
 
@@ -51,18 +54,17 @@ test('manual comments retain Chinese meaning without any unavailable annotations
   assert.equal('annotationDiscrepancies' in annotated, false);
 });
 
-test('verified binary evidence adds independent enum and callback comments with the checked side', (t) => {
+test('verified binary evidence produces compact tags for enum members and callbacks', (t) => {
   const { output } = createReport(t);
   const comments = loadModifierComments(output);
-  assert.match(comments.get(MEMBER), /服务端 server/);
-  assert.doesNotMatch(comments.get(MEMBER), /客户端 client/);
-  assert.match(comments.get(MEMBER), /Lua不可用：没有常规 Lua 回调绑定/);
-  assert.match(comments.get(MEMBER), /DLL SHA-256 [a-f\d]{16}/);
-  assert.equal(comments.get(CALLBACK), `${PROC}\n${comments.get(MEMBER)}`);
-  assert.doesNotMatch(
+  assert.equal(comments.get(MEMBER), '@function GetModifierPreAttack_BonusDamage_Proc\n@lua不可用');
+  assert.equal(comments.get(CALLBACK), '@lua不可用');
+  assert.equal(
     comments.get('enum:modifierfunction#member:MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE'),
-    /Lua不可用/,
+    '@function GetModifierPreAttack_BonusDamage\n@both',
   );
+  assert.equal(comments.get('CDOTA_Modifier_Lua.GetModifierPreAttack_BonusDamage'), '@both');
+  assert.doesNotMatch([...comments.values()].join('\n'), /Lua绑定检查|SHA-256|Steam build/);
 });
 
 test('unrecognized branches and absent enum names never become unavailable annotations', (t) => {
@@ -72,38 +74,67 @@ test('unrecognized branches and absent enum names never become unavailable annot
   assert.equal(report.results[0].complete, false);
   const comments = loadModifierComments(output);
   const unknown = comments.get(`${MEMBER.replace('_PROC', '')}_POST_CRIT`);
-  assert.match(unknown, /无法识别绑定/);
-  assert.doesNotMatch(unknown, /Lua不可用/);
+  assert.match(unknown, /^@function [^\n]+$/);
   const absent = comments.get(
     'enum:modifierfunction#member:MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT',
   );
-  assert.match(absent, /当前 DLL 枚举表未收录/);
-  assert.doesNotMatch(absent, /Lua不可用/);
-  assert.match(comments.get(MEMBER), /Lua不可用/);
+  assert.match(absent, /^@function [^\n]+$/);
+  assert.match(comments.get(MEMBER), /@lua不可用/);
 });
 
-test('server and client conclusions are retained separately, including different statuses', (t) => {
+test('availability tags combine both sides without treating unknown or absent results as unavailable', (t) => {
   const { output, report, write } = createReport(t);
-  report.build = { buildId: '123456' };
-  const client = JSON.parse(JSON.stringify(report.results[0]));
-  client.side = 'client';
-  const entry = client.entries.find((item) => item.name === PROC);
-  entry.status = 'unknown';
-  entry.evidence = { enumRecordRva: null, branchRva: null, callbackRva: null };
-  report.results.push(client);
-  write();
-  const comment = loadModifierComments(output).get(MEMBER);
-  assert.match(comment, /服务端 server.*Lua不可用/);
-  assert.match(comment, /客户端 client.*无法识别绑定/);
-  assert.match(comment, /Steam build 123456/);
-  assert.equal((comment.match(/Lua不可用/g) || []).length, 1);
+  for (const [server, client, expected] of [
+    ['bound', 'bound', '@both'],
+    ['bound', 'unbound', '@server'],
+    ['unbound', 'bound', '@client'],
+    ['unbound', 'unbound', '@lua不可用'],
+    ['unknown', 'unbound', ''],
+    ['not_in_binary', 'unbound', ''],
+    ['bound', 'unknown', '@server'],
+    ['unknown', 'bound', '@client'],
+  ]) {
+    for (const [index, status] of [server, client].entries()) {
+      const result = report.results[index];
+      const entry = result.entries.find((item) => item.name === PROC);
+      entry.status = status;
+      entry.evidence.callbackRva =
+        status === 'bound'
+          ? result.entries.find((item) => item.name !== PROC && item.status === 'bound').evidence
+              .callbackRva
+          : null;
+    }
+    write();
+    const comments = loadModifierComments(output);
+    assert.equal(comments.get(CALLBACK), expected);
+    assert.equal(
+      comments.get(MEMBER),
+      ['@function GetModifierPreAttack_BonusDamage_Proc', expected].filter(Boolean).join('\n'),
+    );
+  }
+});
+
+test('a single checked side produces only its confirmed availability and cannot establish global unavailability', (t) => {
+  for (const side of ['server', 'client']) {
+    const { output } = createReport(t, createFixture(), [side]);
+    const comments = loadModifierComments(output);
+    assert.equal(comments.get('CDOTA_Modifier_Lua.GetModifierPreAttack_BonusDamage'), `@${side}`);
+    assert.equal(comments.get(CALLBACK), '');
+    assert.equal(comments.get(MEMBER), '@function GetModifierPreAttack_BonusDamage_Proc');
+  }
 });
 
 test('a missing default report is optional, but an explicitly selected missing report fails', (t) => {
   const { directory } = createReport(t);
   const filename = path.join(directory, 'missing.json');
   const warning = t.mock.method(console, 'warn', () => {});
-  assert.equal(loadModifierComments(filename).size, 0);
+  const comments = loadModifierComments(filename);
+  assert.equal(comments.get(MEMBER), '@function GetModifierPreAttack_BonusDamage_Proc');
+  assert.equal(comments.has(CALLBACK), false);
+  assert.doesNotMatch(
+    [...comments.values()].join('\n'),
+    /@(?:both|server|client|lua不可用)(?=\s|$)/,
+  );
   assert.equal(warning.mock.callCount(), 1);
   assert.throws(() => loadModifierComments(filename, true), /指定的报告不存在/);
 });
@@ -128,10 +159,10 @@ test('old schemas, changed declaration inputs, duplicate sides and missing evide
   write();
   assert.throws(() => loadModifierComments(output), /声明来源已变化/);
   report.declarationsSha256 = hash;
-  report.results.push(report.results[0]);
+  report.results[1].side = 'server';
   write();
   assert.throws(() => loadModifierComments(output), /无效或重复/);
-  report.results.pop();
+  report.results[1].side = 'client';
   report.results[0].route = null;
   write();
   assert.throws(() => loadModifierComments(output), /缺少已确认的回调分派证据/);
@@ -139,7 +170,7 @@ test('old schemas, changed declaration inputs, duplicate sides and missing evide
   assert.throws(() => loadModifierComments(output), /JSON 无法读取或解析/);
 });
 
-test('generation appends binding results to Chinese enum and API descriptions without changing tags or types', (t) => {
+test('generation emits compact enum tags and replaces conflicting callback availability without changing types', (t) => {
   const { output } = createReport(t);
   const previous = process.env.MODIFIER_FUNCTION_REPORT;
   process.env.MODIFIER_FUNCTION_REPORT = output;
@@ -160,7 +191,10 @@ test('generation appends binding results to Chinese enum and API descriptions wi
   for (const normalized of [true, false]) {
     const content = generateEnumDeclarations([declaration], false, normalized);
     assert.match(content, /触发额外攻击力（例：射手天赋）/);
-    assert.match(content, /Lua不可用/);
+    assert.match(
+      content,
+      /\* 触发额外攻击力（例：射手天赋）\n\s*\* @function GetModifierPreAttack_BonusDamage_Proc\n\s*\* @lua不可用\n\s*\*\//,
+    );
     assert.match(content, new RegExp(`= ${declaration.members[0].value}\\b`));
   }
   const [callback] = getFunction(
@@ -177,12 +211,40 @@ test('generation appends binding results to Chinese enum and API descriptions wi
     true,
   );
   assert.match(callback.jsDocComment, /触发额外攻击力（例：射手天赋）/);
-  assert.match(callback.jsDocComment, /Lua不可用/);
+  assert.match(callback.jsDocComment, /@lua不可用/);
   assert.match(callback.jsDocComment, /@abstract/);
-  assert.match(callback.jsDocComment, /@client/);
+  assert.doesNotMatch(callback.jsDocComment, /@(?:both|server|client)\b/);
+  assert.doesNotMatch(callback.jsDocComment, /@function|Lua绑定检查|SHA-256/);
   assert.match(callback.jsDocComment, /@param damage 上游参数/);
   assert.equal(callback.returnType.name, 'number');
   assert.equal(callback.parameters[0].type.name, 'number');
   assert.equal(resolve_comment(CALLBACK, 'param:damage', '参数'), '参数');
   assert.equal(resolve_comment('unrelated', 'description', '原说明'), '原说明');
+
+  const [bound] = getFunction(
+    (parameters, returnType) =>
+      dom.create.method('GetModifierPreAttack_BonusDamage', parameters, returnType),
+    'CDOTA_Modifier_Lua.GetModifierPreAttack_BonusDamage',
+    { args: [], returns: ['int'], available: 'client' },
+    'server',
+    true,
+  );
+  assert.equal((bound.jsDocComment.match(/@both\b/g) || []).length, 1);
+  assert.doesNotMatch(bound.jsDocComment, /@(?:client|server|lua不可用)/);
+  assert.equal(bound.returnType.name, 'number');
+
+  const { overrides } = require('../../build/lua/overrides');
+  const previousOverride = overrides[CALLBACK];
+  overrides[CALLBACK] = { description: 'API 覆盖说明\n@both' };
+  t.after(() => {
+    if (previousOverride === undefined) delete overrides[CALLBACK];
+    else overrides[CALLBACK] = previousOverride;
+  });
+  const [overridden] = getFunction(
+    (parameters, returnType) =>
+      dom.create.method('GetModifierPreAttack_BonusDamage_Proc', parameters, returnType),
+    CALLBACK,
+    { args: [], returns: ['int'], available: 'both' },
+  );
+  assert.equal(overridden.jsDocComment, 'API 覆盖说明\n@lua不可用');
 });

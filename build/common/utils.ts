@@ -5,7 +5,7 @@ import fs from 'fs';
 import { loadModifierComments } from './modifier-comments';
 
 export const wrapDescription = (description: string, start = 0) =>
-  wordwrap({ stop: 80, start })(description.replace(/\n/g, '\n\n'));
+  wordwrap({ stop: 80, start })(description.replace(/\n(?!@)/g, '\n\n'));
 
 type ManualComments = Partial<
   Record<
@@ -47,6 +47,9 @@ function get_modifier_comments(): Map<string, string> {
   return modifier_comments_cache;
 }
 
+export const get_modifier_comment = (identifier: string): string | undefined =>
+  get_modifier_comments().get(identifier);
+
 export function resolve_comment(
   identifier: string,
   field: string,
@@ -55,7 +58,7 @@ export function resolve_comment(
   const manual = get_manual_comments()[identifier];
   if (field === 'description') {
     const description = manual?.description || original;
-    const binding = get_modifier_comments().get(identifier);
+    const binding = get_modifier_comment(identifier);
     return binding ? [description, binding].filter(Boolean).join('\n') : description;
   }
 

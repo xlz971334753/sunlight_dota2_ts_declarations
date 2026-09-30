@@ -220,7 +220,6 @@ declare interface CreateTrackingProjectileOptions extends CreateBaseProjectileOp
     /**
      * When enabled replaces existing projectile from the ability. Does not destroy
      * the particle.
-     *
      * @default false
      */
     bReplaceExisting?: boolean;

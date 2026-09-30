@@ -4,19 +4,19 @@ import _ from 'lodash';
 import path from 'path';
 import prettier from 'prettier';
 import fs from 'fs';
-import { resolve_comment, wrapDescription } from '../common/utils';
+import { get_modifier_comment, resolve_comment, wrapDescription } from '../common/utils';
 import { applyApiOverride, overrides } from './overrides';
 
 const wrapJsDoc = (start: string, description: string) =>
   `${start} ${wrapDescription(description, start.length + 1).trimStart()}`;
 
-type OverrideSpec = {
+interface OverrideSpec {
   callback?: 'required' | 'optional';
   generics?: { name: string; extend?: string }[];
   args?: Record<string, unknown>;
   return?: string;
   description?: string;
-};
+}
 
 let config_overrides: Record<string, OverrideSpec> | undefined;
 function get_config_overrides(): Record<string, OverrideSpec> {
@@ -26,7 +26,11 @@ function get_config_overrides(): Record<string, OverrideSpec> {
     config_overrides = {};
     return config_overrides;
   }
-  config_overrides = JSON.parse(fs.readFileSync(config_path, 'utf8')) as Record<string, OverrideSpec>;
+
+  config_overrides = JSON.parse(fs.readFileSync(config_path, 'utf8')) as Record<
+    string,
+    OverrideSpec
+  >;
   return config_overrides;
 }
 
@@ -184,7 +188,7 @@ export function getFunction<T extends CallableDeclaration>(
       comments.push(
         wrapJsDoc(
           `@param ${x.name}`,
-          resolve_comment(identifier, `param:${x.name}`, x.description!)!,
+          resolve_comment(identifier, `param:${x.name}`, x.description)!,
         ),
       ),
     );
@@ -192,10 +196,17 @@ export function getFunction<T extends CallableDeclaration>(
   if (isAbstract) comments.push('@abstract');
   if ('deprecated' in func) {
     comments.push(
-      wrapJsDoc('@deprecated', resolve_comment(identifier, 'deprecated', func.deprecated!)!),
+      wrapJsDoc('@deprecated', resolve_comment(identifier, 'deprecated', func.deprecated)!),
     );
   }
-  if ('available' in func && func.available !== defaultAvailability) {
+
+  const modifier_comment = get_modifier_comment(identifier);
+
+  if (
+    modifier_comment === undefined &&
+    'available' in func &&
+    func.available !== defaultAvailability
+  ) {
     comments.push(`@${func.available}`);
   }
 
@@ -217,9 +228,17 @@ export function getFunction<T extends CallableDeclaration>(
   const override = overrides[identifier];
   const file_override = get_config_overrides()[identifier] as any;
   const merged_override = file_override ?? override;
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const declarations: T[] =
     merged_override !== undefined ? applyApiOverride(fn, merged_override) : [fn];
+
+  if (modifier_comment !== undefined) {
+    for (const declaration of declarations) {
+      const description = (declaration.jsDocComment || '')
+        .replace(/^@(?:both|server|client|lua不可用)(?:[ \t].*)?(?:\r?\n|$)/gm, '')
+        .trim();
+      declaration.jsDocComment = [description, modifier_comment].filter(Boolean).join('\n');
+    }
+  }
 
   if (compatibilityOverloads.has(identifier)) {
     const compatibilityFn = createType([], dom.create.namedTypeReference('never'));
