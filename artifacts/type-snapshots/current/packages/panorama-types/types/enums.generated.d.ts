@@ -5083,6 +5083,12 @@ declare enum modifierfunction {
     MODIFIER_PROPERTY_TOOLTIP2 = 275,
     /**
      * 攻击记录销毁时（例：奥术天球）
+     *
+     * 注意：该事件并非仅由攻击触发；自定义伤害也可触发。清理攻击状态时必须匹配 event.record，不能仅按 attacker
+     * 无条件清空，以免其他伤害记录销毁时误清当前攻击状态。
+     *
+     * 依据：dota_super_mid 的用户实测反馈及修复提交
+     * 5b701972（2026-10-10）。官方技能伤害也有触发的初步观察，但尚未验证是否所有伤害路径都会触发。
      * @function OnAttackRecordDestroy
      * @both
      */

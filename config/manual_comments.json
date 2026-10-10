@@ -1701,7 +1701,7 @@
     "description": "记录攻击时（例：神枪在手）"
   },
   "CDOTA_Modifier_Lua.OnAttackRecordDestroy": {
-    "description": "攻击记录销毁时（例：奥术天球）"
+    "description": "攻击记录销毁时（例：奥术天球）\n注意：该回调并非仅由攻击触发；自定义伤害也可触发。清理攻击状态时必须匹配 event.record，不能仅按 attacker 无条件清空，以免其他伤害记录销毁时误清当前攻击状态。\n依据：dota_super_mid 的用户实测反馈及修复提交 5b701972（2026-10-10）。官方技能伤害也有触发的初步观察，但尚未验证是否所有伤害路径都会触发。"
   },
   "CDOTA_Modifier_Lua.OnAttackStart": {
     "description": "开始攻击抬手时（例：不可侵犯）"
@@ -8715,7 +8715,7 @@
     "description": "记录攻击时（例：神枪在手）"
   },
   "enum:modifierfunction#member:MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY": {
-    "description": "攻击记录销毁时（例：奥术天球）"
+    "description": "攻击记录销毁时（例：奥术天球）\n注意：该事件并非仅由攻击触发；自定义伤害也可触发。清理攻击状态时必须匹配 event.record，不能仅按 attacker 无条件清空，以免其他伤害记录销毁时误清当前攻击状态。\n依据：dota_super_mid 的用户实测反馈及修复提交 5b701972（2026-10-10）。官方技能伤害也有触发的初步观察，但尚未验证是否所有伤害路径都会触发。"
   },
   "enum:modifierfunction#member:MODIFIER_EVENT_ON_ATTACK_START": {
     "description": "开始攻击抬手时（例：不可侵犯）"
