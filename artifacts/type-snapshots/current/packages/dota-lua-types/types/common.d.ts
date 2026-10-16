@@ -12,7 +12,7 @@ type NetworkedData<T> = T extends string | number
     : T extends boolean
     ? 0 | 1
     : T extends (infer U)[]
-    ? { [key: number]: NetworkedData<U> }
+    ? { [key: number]: NetworkedData<U>; }
     : T extends Function // eslint-disable-line @typescript-eslint/ban-types
     ? undefined
     : T extends object
@@ -21,15 +21,15 @@ type NetworkedData<T> = T extends string | number
 
 type DotaConstructor<T extends object> = {
     [P in keyof T]: P extends '__kind__'
-        ? 'constructor'
-        : T[P] extends (...args: infer TArgs) => infer TReturn
-        ? <TThis extends T>(this: TThis, ...args: TArgs) => TReturn
-        : T[P];
+    ? 'constructor'
+    : T[P] extends (...args: infer TArgs) => infer TReturn
+    ? <TThis extends T>(this: TThis, ...args: TArgs) => TReturn
+    : T[P];
 };
 
 type ModifierTable<T extends CDOTA_Modifier_Lua = CDOTA_Modifier_Lua> = Parameters<T['OnCreated']>[0] & {
-    /** 持续时间在slmodifier添加时不配置在table内 */
-    duration?: never;
+    /** 持续时间 */
+    duration?: number;
 };
 
 type __NumberLike = number & Record<Exclude<keyof number, 'toString'>, never>;
