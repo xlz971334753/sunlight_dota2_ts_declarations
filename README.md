@@ -80,15 +80,23 @@ yarn test:resources
      - `yarn publish:types --bump=minor`
      - `npm run publish:types -- --bump=major`
      - If no `--bump` is passed and the script is running in a TTY, it will prompt interactively.
-   - If your account has 2FA enabled for publish, provide an OTP:
+   - In an interactive terminal, npm handles publish authentication itself. For passkeys or security
+     keys, follow the browser authentication link displayed by npm when requested. Do not pass
+     `--otp` or set `NPM_OTP` for this flow.
+   - If you use an authenticator app, you can provide its current numeric OTP:
      - `yarn publish:types --otp=123456`
      - `npm run publish:types -- --otp=123456`
      - or set `NPM_OTP=123456`
-   - If no OTP is passed and publish fails with `EOTP`, the script will prompt for one
-     interactively.
-3. The script builds both packages, compares each package against the npm `latest` tarball
-   (ignoring `version`), skips packages with no substantive changes, and for changed/new packages
-   bumps a version (major/minor/patch) then runs `npm publish --access public`.
+   - An `npm_...` access token is **not** an OTP. Configure access tokens through npm's
+     authentication settings (`.npmrc`), never through `--otp` or `NPM_OTP`. Automated publishing
+     requires a granular token with publish access and Bypass 2FA, if allowed by the package.
+   - Invalid explicit OTP values are rejected before building or changing versions.
+3. The script builds both packages, compares each package against the npm `latest` tarball (ignoring
+   `version`), skips packages with no substantive changes, and for changed/new packages runs
+   `npm publish --access public`. A changed package whose current version is already published is
+   bumped (major/minor/patch). An unpublished local version is reused, including after a failed or
+   cancelled attempt, so retries do not repeatedly increment it. If npm has a newer version, the
+   script stops and asks you to update the local version first.
 4. If versions were bumped, commit the updated package `package.json` files if you want the version
    changes tracked in git.
 
