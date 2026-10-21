@@ -33,6 +33,7 @@ function buildRows(npcDirectory) {
   const heroes = requireBlock(loadKeyValues(heroesFile, npcDirectory), 'DOTAHeroes', heroesFile);
   const abilities = new Map();
   const facets = new Map();
+  const innates = new Set();
   const validAbility = (name) =>
     typeof name === 'string' &&
     name &&
@@ -41,16 +42,29 @@ function buildRows(npcDirectory) {
   for (const [hero, data] of heroes) {
     if (!hero.startsWith('npc_dota_hero_') || hero === 'npc_dota_hero_base' || !Array.isArray(data))
       continue;
-    walk(data, (key, value) => {
-      if (/^Ability\d+$/.test(key) && validAbility(value) && !abilities.has(value))
-        abilities.set(value, hero);
-    });
+    // Facets are collected separately so deprecated entries cannot leak into normal abilities.
+    walk(
+      data.filter(([key]) => key.toLowerCase() !== 'facets'),
+      (key, value) => {
+        if (/^Ability\d+$/.test(key) && validAbility(value) && !abilities.has(value))
+          abilities.set(value, hero);
+      },
+    );
+    const definitions = get(data, 'AbilityDefinitions');
+    if (Array.isArray(definitions))
+      for (const [name, definition] of definitions) {
+        if (Array.isArray(definition) && /^(true|1)$/i.test(get(definition, 'Innate')))
+          innates.add(name);
+      }
     const facetData = get(data, 'Facets');
     if (Array.isArray(facetData))
-      walk(facetData, (key, value) => {
-        if (key === 'AbilityName' && validAbility(value) && !facets.has(value))
-          facets.set(value, hero);
-      });
+      for (const [, facet] of facetData) {
+        if (!Array.isArray(facet) || /^(true|1)$/i.test(get(facet, 'Deprecated'))) continue;
+        walk(facet, (key, value) => {
+          if (key === 'AbilityName' && validAbility(value) && !facets.has(value))
+            facets.set(value, hero);
+        });
+      }
   }
   const shopsFile = path.join(npcDirectory, 'shops.txt');
   const shops = requireBlock(loadKeyValues(shopsFile), 'dota_shops', shopsFile);
@@ -79,7 +93,14 @@ function buildRows(npcDirectory) {
     if (hero) {
       const heroName = tokens.get(hero);
       if (!heroName) throw new Error(`英雄缺少中文名称：${hero}`);
-      rows.push([hero, heroName, name, translation + (facets.has(name) ? ' (命石技能)' : '')]);
+      rows.push([
+        hero,
+        heroName,
+        name,
+        translation +
+          (innates.has(name) ? '（先天技能）' : '') +
+          (facets.has(name) ? ' (命石技能)' : ''),
+      ]);
     } else if (shopItems.has(name)) {
       rows.push([name, '商店装备', name, translation]);
     } else if (neutralItems.has(name)) {
