@@ -139,4 +139,4 @@ async function ensureTool(root, operations = {}) {
   }
 }
 
-module.exports = { ensureTool, verifyFiles };
+module.exports = { download, ensureTool, sha256, unpack, verifyFiles };

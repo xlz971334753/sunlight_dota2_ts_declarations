@@ -138,6 +138,7 @@ function fakeProject(t) {
     extract,
     extractions: () => extractions,
     ensureTool: async () => path.join(root, 'tools/cli-windows-x64/Source2Viewer-CLI.exe'),
+    checkToolUpdate: async () => null,
   };
 }
 

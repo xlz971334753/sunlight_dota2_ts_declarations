@@ -1,11 +1,11 @@
 {
-  "version": "20.0",
-  "url": "https://github.com/ValveResourceFormat/ValveResourceFormat/releases/download/20.0/cli-windows-x64.zip",
-  "size": 52735867,
-  "sha256": "d32ab327b8bbb42a2528866afb03bb582bdb779d0005488da32b90292afd3ff5",
+  "version": "21.1",
+  "url": "https://github.com/ValveResourceFormat/ValveResourceFormat/releases/download/21.1/cli-windows-x64.zip",
+  "size": 67094159,
+  "sha256": "cd01665e4d31d70c1081546a697eb5654f30718000fef1a2bb0654ae044d659e",
   "files": {
-    "Source2Viewer-CLI.exe": "a4bb4f9945db985efb2cad90a90d06867de5ba7e0447a2a4a69a07dace781028",
-    "libSkiaSharp.dll": "0d98e29c028b3315d0e0344d02cd7aa4080abdf17fa67086847da13435320f2a",
-    "spirv-cross.dll": "6426b3f1a11f6a324569794cd44ab97905009a77bd3be12a4e7fe42cede774c2"
+    "Source2Viewer-CLI.exe": "50502077543856a3f760eecf53b073dcdea5073c193f0274c2088b5a2a8f4d13",
+    "libSkiaSharp.dll": "935ef4a00462e6b0c4dadb870f734fa43679b4f561287fe0d28cbe2ba147e832",
+    "spirv-cross.dll": "6bb6ed12a6d5f673f236a55c2071cb5f33403f8111f3cf80ebba09735e57286f"
   }
 }

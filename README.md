@@ -19,11 +19,20 @@ yarn update:resources
 ```
 
 该命令使用 `tools/cli-windows-x64/Source2Viewer-CLI.exe`，不依赖 Python、Excel 或手动解包。
-首次运行会从 ValveResourceFormat 官方 GitHub Release 下载固定的 `20.0` 版本（约 50.3 MiB），
-校验压缩包 SHA-256 后解压，再校验 EXE 和 DLL；下载地址、大小和哈希保存在 `tools/source2viewer.json`。
-后续每次校验本地工具，匹配时无需联网；缺失或不匹配时重新下载，失败时保留已有工具和输出。
+首次运行会按 `tools/source2viewer.json` 下载并校验 Source2Viewer；后续每次校验本地工具，匹配时无需重新下载，
+缺失或不匹配时重新下载，失败时保留已有工具和输出。
+如需升级到 ValveResourceFormat 官方最新 Release，单独运行：
+
+```sh
+yarn update:source2viewer
+```
+
+该命令通过官方 `releases/latest` 检测版本，下载 `cli-windows-x64.zip`，计算压缩包和三个运行时文件的 SHA-256，
+校验通过后原子替换本地工具及 `tools/source2viewer.json`。资源更新运行时也会检查最新版本；发现本地工具较旧时只显示黄色提示，
+不会因为联网检查失败而阻断资源更新。
 工具二进制仅缓存在本地，不加入 Git。下载和解压使用 Windows 10/11 自带的 `curl.exe`、`tar.exe`，
-需要代理时可设置 `HTTPS_PROXY` 环境变量。
+需要代理时可设置 `HTTPS_PROXY`、`HTTP_PROXY` 或 `ALL_PROXY` 环境变量；版本检测和文件下载都会交给 `curl.exe`，
+因此会沿用这些代理设置。升级命令和首次资源更新都需要访问 GitHub。
 它从 Steam 注册表和 `libraryfolders.vdf` 查找安装了 Dota 2（App ID 570）的库；
 以本机 Steam build ID、VPK 目录内容与分卷大小/修改时间判断资源是否变化。
 首次运行、生成脚本或解包工具变化、结果缺失或被修改时，也会重新生成；全部未变化时跳过。

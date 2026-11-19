@@ -6,6 +6,7 @@ const { findDota, readBuild } = require('./resources/steam');
 const { within } = require('./resources/keyvalues');
 const { generate } = require('./resources/generate');
 const { ensureTool } = require('./resources/tool');
+const { checkForUpdate, warning } = require('./resources/source2viewer');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const OWNED = [
@@ -257,6 +258,17 @@ async function updateResources(options = {}) {
         source.build?.buildId || '无 manifest，使用 VPK 指纹'
       }`,
     );
+    try {
+      const toolUpdate = await (options.checkToolUpdate || checkForUpdate)(root, extractor);
+      if (toolUpdate?.available)
+        console.warn(
+          warning(
+            `Source2Viewer-CLI 当前为 ${toolUpdate.currentVersion}，最新版本为 ${toolUpdate.latestVersion}；可运行 yarn update:source2viewer 升级工具。`,
+          ),
+        );
+    } catch (error) {
+      console.warn(warning(`无法检查 Source2Viewer-CLI 最新版本：${error.message}`));
+    }
     let previous;
     try {
       previous = JSON.parse(fs.readFileSync(path.join(output, '.resources-state.json'), 'utf8'));
