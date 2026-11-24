@@ -4596,7 +4596,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 可攻击虚无单位（例：超自然）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetAllowEtherealAttack?(): void;
     /**
@@ -4610,7 +4610,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 固守原位仍自动攻击（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetAlwaysAutoAttackWhileHoldPosition?(): void;
     /**
@@ -4666,21 +4666,21 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 增益时间增强（例：安可）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetBuffAmplification?(): void;
     /**
      * 物理纯粹转化攻击特效（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetConvertAttackPhysicalToPure?(): void;
     /**
      * 致命一击倍率增加（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetCriticalStrikeBonus?(): void;
     /**
@@ -4701,7 +4701,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 魔法获取无效化（例：神杖闪烁）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetDisableManaGain?(): void;
     /**
@@ -4736,7 +4736,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比魔法抗性穿透（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetMagicalArmorPiercingPercentageTarget?(): void;
     /**
@@ -4764,7 +4764,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 提供技能点数（例：曲线学习）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierAbilityPoints?(): void;
     /**
@@ -4778,7 +4778,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 特殊定值作用范围加成（例：缚灵索）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierAoEBonusConstant?(): void;
     /**
@@ -4792,7 +4792,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比作用范围加成（例：凶）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierAoEBonusPercentage?(): number;
     /**
@@ -4939,14 +4939,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 定值基础攻击间隔调整（例：神杖虚妄之诺）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBaseAttackTimeConstant_Adjust?(): number;
     /**
      * 百分比基础攻击间隔（例：中立附魔粗暴）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBaseAttackTimePercentage?(): number;
     /**
@@ -4995,35 +4995,35 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 变为敏捷（例：潮涨）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBecomeAgility?(): void;
     /**
      * 变为智力（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBecomeIntelligence?(): void;
     /**
      * 变为力量（例：潮落）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBecomeStrength?(): void;
     /**
      * 变为全才（例：老版冥界亚龙天赋）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBecomeUniversal?(): 0 | 1;
     /**
      * 额外攻击百分比调整（例：灵幻兵械）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBonusDamageOutgoing_Percentage?(): void;
     /**
@@ -5044,7 +5044,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比总敏捷（例：射手天赋）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBonusStats_Agility_Percentage?(): number;
     /**
@@ -5058,7 +5058,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比总智力（例：通灵头带）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBonusStats_Intellect_Percentage?(): number;
     /**
@@ -5072,7 +5072,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比总力量（例：血肉傀儡）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBonusStats_Strength_Percentage?(): number;
     /**
@@ -5086,7 +5086,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比买活惩罚（例：恶魔的交易）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierBuybackPenaltyPercent?(): void;
     /**
@@ -5107,7 +5107,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比施法距离（例：折跃耀光）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierCastRangeBonusPercentage?(event: ModifierAbilityEvent): number;
     /**
@@ -5219,14 +5219,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 幻象特殊攻击伤害调整（例：幻象对建筑肉山）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierDamageOutgoing_Percentage_Illusion_Amplify?(): void;
     /**
      * 特殊百分比总攻击调整（例：窒碍短匕）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierDamageOutgoing_PercentageMultiplicative?(): void;
     /**
@@ -5282,7 +5282,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比额外最大魔法值（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierExtraManaBonusPercentage?(): void;
     /**
@@ -5317,14 +5317,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 最大生命值设定（例：坚毅之件）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierForceMaxHealth?(): void;
     /**
      * 最大魔法值设定（例：血魔法）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierForceMaxMana?(): void;
     /**
@@ -5373,7 +5373,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 定值生命消耗降低（例：德尊血式）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierHealthcostReduction_Constant?(): void;
     /**
@@ -5429,7 +5429,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 忽略冷却（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierIgnoreCooldown?(): 0 | 1;
     /**
@@ -5492,14 +5492,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 近战物理伤害格挡概率覆盖（例：刚毅）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierInnateDamageBlockPctOverride?(): void;
     /**
      * 智力无效化（例：傻福）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierIntellectNone?(): void;
     /**
@@ -5548,7 +5548,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 击退抗性（例：坚固核心）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierKnockbackAmplification_Percentage?(): void;
     /**
@@ -5569,7 +5569,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 基础魔法抗性降低（例：自然秩序）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierMagicalResistanceBaseReduction?(): void;
     /**
@@ -5583,14 +5583,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 幻象魔法抗性（例：暗绘）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierMagicalResistanceBonusIllusions?(): void;
     /**
      * 特殊魔法抗性（例：永世法衣）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierMagicalResistanceBonusUnique?(): void;
     /**
@@ -5625,7 +5625,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 魔法消耗增强（例：分则能成）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierManaDrainAmplify_Percentage?(): void;
     /**
@@ -5639,7 +5639,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 最低护甲设定（例：刚强巨盾）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierMinPhysicalArmor?(): void;
     /**
@@ -5919,7 +5919,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比攻击动作（例：海象神拳！）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPercentageAttackAnimTime?(): number;
     /**
@@ -5933,7 +5933,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比经验金钱转化（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPercentageConvertExpToGold?(): void;
     /**
@@ -5947,7 +5947,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 冷却速度调整（例：时间膨胀）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPercentageCooldownOngoing?(event: ModifierAbilityEvent): number;
     /**
@@ -6038,7 +6038,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 额外物理伤害格挡（例：利维坦的渔获）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPhysical_ConstantBlockBonus?(): void;
     /**
@@ -6073,7 +6073,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 后结算定值护甲（例：灵魂链接）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPhysicalArmorBonusPost?(): void;
     /**
@@ -6094,14 +6094,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比总护甲调整（例：变态上颚）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPhysicalArmorTotal_Percentage?(): void;
     /**
      * 施加方百分比物理伤害（例：怨灵之契）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPhysicalDamageOutgoing_Percentage?(): void;
     /**
@@ -6122,7 +6122,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 触发额外攻击力（例：射手天赋）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPreAttack_BonusDamage_Proc?(): number;
     /**
@@ -6164,7 +6164,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 前结算伤害调整（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPrereduceIncomingDamage_Mult?(): void;
     /**
@@ -6185,7 +6185,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 目标魔法攻击特效（例：丝质重器）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierProcAttack_BonusDamage_Magical_Target?(): void;
     /**
@@ -6206,7 +6206,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 物理魔法转化攻击特效（例：超自然）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierProcAttack_ConvertPhysicalToMagical?(): void;
     /**
@@ -6227,7 +6227,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 区域百分比弹道速度（例：逆转时空）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierProjectileSpeed?(): number;
     /**
@@ -6241,14 +6241,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比弹道速度（例：银闪护符）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierProjectileSpeedBonusPercentage?(): number;
     /**
      * 区域百分比目标弹道速度（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierProjectileSpeedTarget?(): void;
     /**
@@ -6332,7 +6332,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 致使攻击失败（例：林渊旅人）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierPropetyFailAttack?(): void;
     /**
@@ -6346,7 +6346,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 扫描冷却降低（例：望远镜）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierRadarCooldownReduction?(): number;
     /**
@@ -6360,7 +6360,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 魔晶升级（例：魔晶）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierShard?(): 0 | 1;
     /**
@@ -6381,14 +6381,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 特殊减速抗性（例：散华）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GEtModifierSlowResistance_Unique?(): void;
     /**
      * 减速抗性影响攻速（例：不可逾越）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierSlowResistanceAppliesToAttacks?(): void;
     /**
@@ -6402,7 +6402,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 目标技能增强（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierSpellAmplify_PercentageTarget?(): void;
     /**
@@ -6430,7 +6430,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 技能共享目标（例：位面空洞）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierSpellRedirectTarget?(): void;
     /**
@@ -6472,14 +6472,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 强幻象标签（例：复仇光环）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierStrongIllusion?(): void;
     /**
      * 可施法幻象标签（例：复仇光环）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierSuperIllusion?(): 0 | 1;
     /**
@@ -6514,7 +6514,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 被动金钱倍率（例：贤者石）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierTickGold_Multiplier?(): void;
     /**
@@ -6563,7 +6563,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 定值转身速率（例：织网）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierTurnRateConstant?(): number;
     /**
@@ -6584,7 +6584,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 死亡可获得经验（例：复仇光环）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetModifierXPDuringDeath?(): void;
     /**
@@ -6626,7 +6626,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 百分比护甲穿透（例：地狱之裂）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetPhysicalArmorPiercingPercentageTarget?(): void;
     /**
@@ -6681,14 +6681,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 不触发攻击分裂（例：神之谴戒）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetSuppressCleave?(event: ModifierAttackEvent): 0 | 1;
     /**
      * 不触发致命一击（例：老版英灵胸针）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetSuppressCrit?(): void;
     /**
@@ -6716,7 +6716,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 仅触发攻击动作特效（例：Ti9战鼓）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     GetTriggerCosmeticAndEndAttack?(): void;
     /**
@@ -6765,7 +6765,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 后结算伤害护盾（未知）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT_POST?(): void;
     /**
@@ -6970,7 +6970,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 强制触发魔棒时（例：幽冥守卫）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnForceProcMagicStick?(): void;
     /**
@@ -7061,14 +7061,14 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 移除modifier时（例：神杖高射火炮）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnModifierRemoved?(event: ModifierAddedEvent): void;
     /**
      * 锁闭伤害技能时（例：闪烁匕首）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnMuteDamageAbilities?(): void;
     /**
@@ -7089,7 +7089,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 收到指令时（例：能量齿轮）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnOrderReceived?(): void;
     /**
@@ -7131,7 +7131,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 获取生命转移时（例：克莱拉牧杖）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnRedirectHealthGain?(): void;
     /**
@@ -7152,7 +7152,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 选择神杖升级时（例：元素祈唤）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnScepterUpgradeSelected?(): void;
     /**
@@ -7166,7 +7166,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 选择魔晶升级时（例：元素祈唤）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnShardUpgradeSelected?(): void;
     /**
@@ -7194,7 +7194,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 消耗物品充能时（例：分则能成）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnSpentItemCharge?(): void;
     /**
@@ -7229,7 +7229,7 @@ declare interface CDOTA_Modifier_Lua extends CDOTA_Buff {
      * 在首端伤害格挡前时（例：永世法衣）
      *
      * @abstract
-     * @lua不可用
+     * @both
      */
     OnTakeDamagePostUnavoidableBlock?(): void;
     /**

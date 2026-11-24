@@ -3465,7 +3465,7 @@ declare enum ModifierFunction {
     /**
      * 触发额外攻击力（例：射手天赋）
      * @function GetModifierPreAttack_BonusDamage_Proc
-     * @lua不可用
+     * @both
      */
     PREATTACK_BONUS_DAMAGE_PROC = 2,
     /**
@@ -3489,7 +3489,7 @@ declare enum ModifierFunction {
     /**
      * 物理魔法转化攻击特效（例：超自然）
      * @function GetModifierProcAttack_ConvertPhysicalToMagical
-     * @lua不可用
+     * @both
      */
     PROCATTACK_CONVERT_PHYSICAL_TO_MAGICAL = 6,
     /**
@@ -3507,7 +3507,7 @@ declare enum ModifierFunction {
     /**
      * 目标魔法攻击特效（例：丝质重器）
      * @function GetModifierProcAttack_BonusDamage_Magical_Target
-     * @lua不可用
+     * @both
      */
     PROCATTACK_BONUS_DAMAGE_MAGICAL_TARGET = 9,
     /**
@@ -3675,7 +3675,7 @@ declare enum ModifierFunction {
     /**
      * 定值生命消耗降低（例：德尊血式）
      * @function GetModifierHealthcostReduction_Constant
-     * @lua不可用
+     * @both
      */
     HEALTHCOST_REDUCTION_CONSTANT = 37,
     /**
@@ -3687,13 +3687,13 @@ declare enum ModifierFunction {
     /**
      * 定值基础攻击间隔调整（例：神杖虚妄之诺）
      * @function GetModifierBaseAttackTimeConstant_Adjust
-     * @lua不可用
+     * @both
      */
     BASE_ATTACK_TIME_CONSTANT_ADJUST = 39,
     /**
      * 百分比基础攻击间隔（例：中立附魔粗暴）
      * @function GetModifierBaseAttackTimePercentage
-     * @lua不可用
+     * @both
      */
     BASE_ATTACK_TIME_PERCENTAGE = 40,
     /**
@@ -3705,7 +3705,7 @@ declare enum ModifierFunction {
     /**
      * 额外攻击百分比调整（例：灵幻兵械）
      * @function GetModifierBonusDamageOutgoing_Percentage
-     * @lua不可用
+     * @both
      */
     BONUSDAMAGEOUTGOING_PERCENTAGE = 42,
     /**
@@ -3723,7 +3723,7 @@ declare enum ModifierFunction {
     /**
      * 幻象特殊攻击伤害调整（例：幻象对建筑肉山）
      * @function GetModifierDamageOutgoing_Percentage_Illusion_Amplify
-     * @lua不可用
+     * @both
      */
     DAMAGEOUTGOING_PERCENTAGE_ILLUSION_AMPLIFY = 45,
     /**
@@ -3747,7 +3747,7 @@ declare enum ModifierFunction {
     /**
      * 目标技能增强（未知）
      * @function GetModifierSpellAmplify_PercentageTarget
-     * @lua不可用
+     * @both
      */
     SPELL_AMPLIFY_PERCENTAGE_TARGET = 49,
     /**
@@ -3801,7 +3801,7 @@ declare enum ModifierFunction {
     /**
      * 魔法消耗增强（例：分则能成）
      * @function GetModifierManaDrainAmplify_Percentage
-     * @lua不可用
+     * @both
      */
     MANA_DRAIN_AMPLIFY_PERCENTAGE = 58,
     /**
@@ -3903,7 +3903,7 @@ declare enum ModifierFunction {
     /**
      * 百分比总护甲调整（例：变态上颚）
      * @function GetModifierPhysicalArmorTotal_Percentage
-     * @lua不可用
+     * @both
      */
     PHYSICAL_ARMOR_TOTAL_PERCENTAGE = 75,
     /**
@@ -3927,13 +3927,13 @@ declare enum ModifierFunction {
     /**
      * 后结算定值护甲（例：灵魂链接）
      * @function GetModifierPhysicalArmorBonusPost
-     * @lua不可用
+     * @both
      */
     PHYSICAL_ARMOR_BONUS_POST = 79,
     /**
      * 最低护甲设定（例：刚强巨盾）
      * @function GetModifierMinPhysicalArmor
-     * @lua不可用
+     * @both
      */
     MIN_PHYSICAL_ARMOR = 80,
     /**
@@ -3945,7 +3945,7 @@ declare enum ModifierFunction {
     /**
      * 基础魔法抗性降低（例：自然秩序）
      * @function GetModifierMagicalResistanceBaseReduction
-     * @lua不可用
+     * @both
      */
     MAGICAL_RESISTANCE_BASE_REDUCTION = 82,
     /**
@@ -3963,13 +3963,13 @@ declare enum ModifierFunction {
     /**
      * 幻象魔法抗性（例：暗绘）
      * @function GetModifierMagicalResistanceBonusIllusions
-     * @lua不可用
+     * @both
      */
     MAGICAL_RESISTANCE_BONUS_ILLUSIONS = 85,
     /**
      * 特殊魔法抗性（例：永世法衣）
      * @function GetModifierMagicalResistanceBonusUnique
-     * @lua不可用
+     * @both
      */
     MAGICAL_RESISTANCE_BONUS_UNIQUE = 86,
     /**
@@ -4053,7 +4053,7 @@ declare enum ModifierFunction {
     /**
      * 百分比额外最大魔法值（未知）
      * @function GetModifierExtraManaBonusPercentage
-     * @lua不可用
+     * @both
      */
     EXTRA_MANA_BONUS_PERCENTAGE = 100,
     /**
@@ -4089,25 +4089,25 @@ declare enum ModifierFunction {
     /**
      * 百分比总力量（例：血肉傀儡）
      * @function GetModifierBonusStats_Strength_Percentage
-     * @lua不可用
+     * @both
      */
     STATS_STRENGTH_BONUS_PERCENTAGE = 106,
     /**
      * 百分比总敏捷（例：射手天赋）
      * @function GetModifierBonusStats_Agility_Percentage
-     * @lua不可用
+     * @both
      */
     STATS_AGILITY_BONUS_PERCENTAGE = 107,
     /**
      * 百分比总智力（例：通灵头带）
      * @function GetModifierBonusStats_Intellect_Percentage
-     * @lua不可用
+     * @both
      */
     STATS_INTELLECT_BONUS_PERCENTAGE = 108,
     /**
      * 智力无效化（例：傻福）
      * @function GetModifierIntellectNone
-     * @lua不可用
+     * @both
      */
     STATS_INTELLECT_NONE = 109,
     /**
@@ -4119,7 +4119,7 @@ declare enum ModifierFunction {
     /**
      * 百分比施法距离（例：折跃耀光）
      * @function GetModifierCastRangeBonusPercentage
-     * @lua不可用
+     * @both
      */
     CAST_RANGE_BONUS_PERCENTAGE = 111,
     /**
@@ -4173,7 +4173,7 @@ declare enum ModifierFunction {
     /**
      * 百分比弹道速度（例：银闪护符）
      * @function GetModifierProjectileSpeedBonusPercentage
-     * @lua不可用
+     * @both
      */
     PROJECTILE_SPEED_BONUS_PERCENTAGE = 120,
     /**
@@ -4221,7 +4221,7 @@ declare enum ModifierFunction {
     /**
      * 冷却速度调整（例：时间膨胀）
      * @function GetModifierPercentageCooldownOngoing
-     * @lua不可用
+     * @both
      */
     COOLDOWN_PERCENTAGE_ONGOING = 128,
     /**
@@ -4233,7 +4233,7 @@ declare enum ModifierFunction {
     /**
      * 百分比攻击动作（例：海象神拳！）
      * @function GetModifierPercentageAttackAnimTime
-     * @lua不可用
+     * @both
      */
     ATTACK_ANIM_TIME_PERCENTAGE = 130,
     /**
@@ -4293,7 +4293,7 @@ declare enum ModifierFunction {
     /**
      * 百分比经验金钱转化（未知）
      * @function GetModifierPercentageConvertExpToGold
-     * @lua不可用
+     * @both
      */
     CONVERT_EXP_TO_GOLD_PCT = 140,
     /**
@@ -4329,13 +4329,13 @@ declare enum ModifierFunction {
     /**
      * 额外物理伤害格挡（例：利维坦的渔获）
      * @function GetModifierPhysical_ConstantBlockBonus
-     * @lua不可用
+     * @both
      */
     PHYSICAL_CONSTANT_BLOCK_BONUS = 146,
     /**
      * 近战物理伤害格挡概率覆盖（例：刚毅）
      * @function GetModifierInnateDamageBlockPctOverride
-     * @lua不可用
+     * @both
      */
     INNATE_DAMAGE_BLOCK_PCT_OVERRIDE = 147,
     /**
@@ -4467,13 +4467,13 @@ declare enum ModifierFunction {
     /**
      * 强幻象标签（例：复仇光环）
      * @function GetModifierStrongIllusion
-     * @lua不可用
+     * @both
      */
     STRONG_ILLUSION = 169,
     /**
      * 可施法幻象标签（例：复仇光环）
      * @function GetModifierSuperIllusion
-     * @lua不可用
+     * @both
      */
     SUPER_ILLUSION = 170,
     /**
@@ -4485,7 +4485,7 @@ declare enum ModifierFunction {
     /**
      * 死亡可获得经验（例：复仇光环）
      * @function GetModifierXPDuringDeath
-     * @lua不可用
+     * @both
      */
     XP_DURING_DEATH = 172,
     /**
@@ -4509,7 +4509,7 @@ declare enum ModifierFunction {
     /**
      * 魔法获取无效化（例：神杖闪烁）
      * @function GetDisableManaGain
-     * @lua不可用
+     * @both
      */
     DISABLE_MANA_GAIN = 176,
     /**
@@ -4521,7 +4521,7 @@ declare enum ModifierFunction {
     /**
      * 可攻击虚无单位（例：超自然）
      * @function GetAllowEtherealAttack
-     * @lua不可用
+     * @both
      */
     ALWAYS_ETHEREAL_ATTACK = 178,
     /**
@@ -4561,7 +4561,7 @@ declare enum ModifierFunction {
     /**
      * 仅触发攻击动作特效（例：Ti9战鼓）
      * @function GetTriggerCosmeticAndEndAttack
-     * @lua不可用
+     * @both
      */
     TRIGGER_COSMETIC_AND_END_ATTACK = 185,
     /**
@@ -4579,37 +4579,37 @@ declare enum ModifierFunction {
     /**
      * 固守原位仍自动攻击（未知）
      * @function GetAlwaysAutoAttackWhileHoldPosition
-     * @lua不可用
+     * @both
      */
     ALWAYS_AUTOATTACK_WHILE_HOLD_POSITION = 188,
     /**
      * 百分比护甲穿透（例：地狱之裂）
      * @function GetPhysicalArmorPiercingPercentageTarget
-     * @lua不可用
+     * @both
      */
     PHYSICAL_ARMOR_PIERCING_PERCENTAGE_TARGET = 189,
     /**
      * 百分比魔法抗性穿透（未知）
      * @function GetMagicalArmorPiercingPercentageTarget
-     * @lua不可用
+     * @both
      */
     MAGICAL_ARMOR_PIERCING_PERCENTAGE_TARGET = 190,
     /**
      * 致命一击倍率增加（未知）
      * @function GetCriticalStrikeBonus
-     * @lua不可用
+     * @both
      */
     CRITICAL_STRIKE_BONUS = 191,
     /**
      * 物理纯粹转化攻击特效（未知）
      * @function GetConvertAttackPhysicalToPure
-     * @lua不可用
+     * @both
      */
     CONVERT_ATTACK_PHYSICAL_TO_PURE = 192,
     /**
      * 增益时间增强（例：安可）
      * @function GetBuffAmplification
-     * @lua不可用
+     * @both
      */
     BUFF_AMPLIFICATION = 193,
     /**
@@ -4669,7 +4669,7 @@ declare enum ModifierFunction {
     /**
      * 收到指令时（例：能量齿轮）
      * @function OnOrderReceived
-     * @lua不可用
+     * @both
      */
     ON_ORDER_RECEIVED = 203,
     /**
@@ -4798,7 +4798,7 @@ declare enum ModifierFunction {
     /**
      * 消耗物品充能时（例：分则能成）
      * @function OnSpentItemCharge
-     * @lua不可用
+     * @both
      */
     ON_SPENT_ITEM_CHARGE = 225,
     /**
@@ -4852,7 +4852,7 @@ declare enum ModifierFunction {
     /**
      * 获取生命转移时（例：克莱拉牧杖）
      * @function OnRedirectHealthGain
-     * @lua不可用
+     * @both
      */
     ON_REDIRECT_HEALTH_GAIN = 234,
     /**
@@ -4876,19 +4876,19 @@ declare enum ModifierFunction {
     /**
      * 移除modifier时（例：神杖高射火炮）
      * @function OnModifierRemoved
-     * @lua不可用
+     * @both
      */
     ON_MODIFIER_REMOVED = 238,
     /**
      * 选择神杖升级时（例：元素祈唤）
      * @function OnScepterUpgradeSelected
-     * @lua不可用
+     * @both
      */
     ON_SCEPTER_UPGRADE_SELECTED = 239,
     /**
      * 选择魔晶升级时（例：元素祈唤）
      * @function OnShardUpgradeSelected
-     * @lua不可用
+     * @both
      */
     ON_SHARD_UPGRADE_SELECTED = 240,
     /**
@@ -4936,13 +4936,13 @@ declare enum ModifierFunction {
     /**
      * 魔晶升级（例：魔晶）
      * @function GetModifierShard
-     * @lua不可用
+     * @both
      */
     IS_SHARD = 248,
     /**
      * 扫描冷却降低（例：望远镜）
      * @function GetModifierRadarCooldownReduction
-     * @lua不可用
+     * @both
      */
     RADAR_COOLDOWN_REDUCTION = 249,
     /**
@@ -5062,7 +5062,7 @@ declare enum ModifierFunction {
     /**
      * 忽略冷却（未知）
      * @function GetModifierIgnoreCooldown
-     * @lua不可用
+     * @both
      */
     IGNORE_COOLDOWN = 269,
     /**
@@ -5085,7 +5085,7 @@ declare enum ModifierFunction {
     VISUAL_Z_SPEED_BASE_OVERRIDE = 272,
     /**
      * 幻象承受伤害调整（例：幻象默认）
-     * @lua不可用
+     * @both
      */
     INCOMING_DAMAGE_ILLUSION = 273,
     /**
@@ -5133,7 +5133,7 @@ declare enum ModifierFunction {
     /**
      * 不触发攻击分裂（例：神之谴戒）
      * @function GetSuppressCleave
-     * @lua不可用
+     * @both
      */
     SUPPRESS_CLEAVE = 280,
     /**
@@ -5156,7 +5156,7 @@ declare enum ModifierFunction {
     MOVESPEED_REDUCTION_PERCENTAGE = 283,
     /**
      * 可在移动时攻击（例：集中火力）
-     * @lua不可用
+     * @both
      */
     ATTACK_WHILE_MOVING_TARGET = 284,
     /**
@@ -5180,13 +5180,13 @@ declare enum ModifierFunction {
     /**
      * 技能共享目标（例：位面空洞）
      * @function GetModifierSpellRedirectTarget
-     * @lua不可用
+     * @both
      */
     SPELL_REDIRECT_TARGET = 288,
     /**
      * 定值转身速率（例：织网）
      * @function GetModifierTurnRateConstant
-     * @lua不可用
+     * @both
      */
     TURN_RATE_CONSTANT = 289,
     /**
@@ -5198,13 +5198,13 @@ declare enum ModifierFunction {
     /**
      * 施加方百分比物理伤害（例：怨灵之契）
      * @function GetModifierPhysicalDamageOutgoing_Percentage
-     * @lua不可用
+     * @both
      */
     PHYSICALDAMAGEOUTGOING_PERCENTAGE = 291,
     /**
      * 击退抗性（例：坚固核心）
      * @function GetModifierKnockbackAmplification_Percentage
-     * @lua不可用
+     * @both
      */
     KNOCKBACK_AMPLIFICATION_PERCENTAGE = 292,
     /**
@@ -5234,13 +5234,13 @@ declare enum ModifierFunction {
     /**
      * 致使攻击失败（例：林渊旅人）
      * @function GetModifierPropetyFailAttack
-     * @lua不可用
+     * @both
      */
     FAIL_ATTACK = 297,
     /**
      * 前结算伤害调整（未知）
      * @function GetModifierPrereduceIncomingDamage_Mult
-     * @lua不可用
+     * @both
      */
     PREREDUCE_INCOMING_DAMAGE_MULT = 298,
     /**
@@ -5252,25 +5252,25 @@ declare enum ModifierFunction {
     /**
      * 后结算伤害护盾（未知）
      * @function MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT_POST
-     * @lua不可用
+     * @both
      */
     INCOMING_DAMAGE_CONSTANT_POST = 300,
     /**
      * 特殊百分比总攻击调整（例：窒碍短匕）
      * @function GetModifierDamageOutgoing_PercentageMultiplicative
-     * @lua不可用
+     * @both
      */
     DAMAGEOUTGOING_PERCENTAGE_MULTIPLICATIVE = 301,
     /**
      * 被动金钱倍率（例：贤者石）
      * @function GetModifierTickGold_Multiplier
-     * @lua不可用
+     * @both
      */
     TICK_GOLD_MULTIPLIER = 302,
     /**
      * 特殊减速抗性（例：散华）
      * @function GEtModifierSlowResistance_Unique
-     * @lua不可用
+     * @both
      */
     SLOW_RESISTANCE_UNIQUE = 303,
     /**
@@ -5282,55 +5282,55 @@ declare enum ModifierFunction {
     /**
      * 减速抗性影响攻速（例：不可逾越）
      * @function GetModifierSlowResistanceAppliesToAttacks
-     * @lua不可用
+     * @both
      */
     SLOW_RESISTANCE_APPLIES_TO_ATTACKS = 305,
     /**
      * 百分比作用范围加成（例：凶）
      * @function GetModifierAoEBonusPercentage
-     * @lua不可用
+     * @both
      */
     AOE_BONUS_PERCENTAGE = 306,
     /**
      * 区域百分比弹道速度（例：逆转时空）
      * @function GetModifierProjectileSpeed
-     * @lua不可用
+     * @both
      */
     PROJECTILE_SPEED = 307,
     /**
      * 区域百分比目标弹道速度（未知）
      * @function GetModifierProjectileSpeedTarget
-     * @lua不可用
+     * @both
      */
     PROJECTILE_SPEED_TARGET = 308,
     /**
      * 变为力量（例：潮落）
      * @function GetModifierBecomeStrength
-     * @lua不可用
+     * @both
      */
     BECOME_STRENGTH = 309,
     /**
      * 变为敏捷（例：潮涨）
      * @function GetModifierBecomeAgility
-     * @lua不可用
+     * @both
      */
     BECOME_AGILITY = 310,
     /**
      * 变为智力（未知）
      * @function GetModifierBecomeIntelligence
-     * @lua不可用
+     * @both
      */
     BECOME_INTELLIGENCE = 311,
     /**
      * 变为全才（例：老版冥界亚龙天赋）
      * @function GetModifierBecomeUniversal
-     * @lua不可用
+     * @both
      */
     BECOME_UNIVERSAL = 312,
     /**
      * 强制触发魔棒时（例：幽冥守卫）
      * @function OnForceProcMagicStick
-     * @lua不可用
+     * @both
      */
     ON_FORCE_PROC_MAGIC_STICK = 313,
     /**
@@ -5378,19 +5378,19 @@ declare enum ModifierFunction {
     /**
      * 最大生命值设定（例：坚毅之件）
      * @function GetModifierForceMaxHealth
-     * @lua不可用
+     * @both
      */
     FORCE_MAX_HEALTH = 321,
     /**
      * 最大魔法值设定（例：血魔法）
      * @function GetModifierForceMaxMana
-     * @lua不可用
+     * @both
      */
     FORCE_MAX_MANA = 322,
     /**
      * 特殊定值作用范围加成（例：缚灵索）
      * @function GetModifierAoEBonusConstant
-     * @lua不可用
+     * @both
      */
     AOE_BONUS_CONSTANT = 323,
     /**
@@ -5402,31 +5402,31 @@ declare enum ModifierFunction {
     /**
      * 在首端伤害格挡前时（例：永世法衣）
      * @function OnTakeDamagePostUnavoidableBlock
-     * @lua不可用
+     * @both
      */
     ON_TAKEDAMAGE_POST_UNAVOIDABLE_BLOCK = 325,
     /**
      * 锁闭伤害技能时（例：闪烁匕首）
      * @function OnMuteDamageAbilities
-     * @lua不可用
+     * @both
      */
     ON_MUTE_DAMAGE_ABILITIES = 326,
     /**
      * 不触发致命一击（例：老版英灵胸针）
      * @function GetSuppressCrit
-     * @lua不可用
+     * @both
      */
     SUPPRESS_CRIT = 327,
     /**
      * 提供技能点数（例：曲线学习）
      * @function GetModifierAbilityPoints
-     * @lua不可用
+     * @both
      */
     ABILITY_POINTS = 328,
     /**
      * 百分比买活惩罚（例：恶魔的交易）
      * @function GetModifierBuybackPenaltyPercent
-     * @lua不可用
+     * @both
      */
     BUYBACK_PENALTY_PERCENT = 329,
     /**
